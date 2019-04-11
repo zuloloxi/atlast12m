@@ -1,0 +1,1323 @@
+{\rtf1\ansi \deff0\deflang1024{\fonttbl{\f0\froman Times;}{\f1\froman Symbol;}{\f2\fswiss Helvetica;}{\f3\froman Roman;}{\f4\fmodern Courier;}{\f5\fscript Script;}{\f6\froman Times;}}{\colortbl;\red0\green0\blue0;
+\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue127;\red0\green127\blue127;\red0\green127\blue0;\red127\green0\blue127;
+\red127\green0\blue0;\red127\green127\blue0;\red127\green127\blue127;\red192\green192\blue192;}{\stylesheet{\s242\qj\sb120\tqc\tx4320\tqr\tx8640 \fs20\lang1033 \sbasedon0\snext242 footer;}{\s243\qj\sb120\tqc\tx4320\tqr\tx8640 \fs20\lang1033 
+\sbasedon0\snext243 header;}{\s252\qj\li360\sb120 \b\lang1033 \sbasedon0\snext255 heading 3;}{\s254\qj\sb240 \b\f2\ul\lang1033 \sbasedon0\snext0 heading 1;}{\s255\qj\li720\sb120 \fs20\lang1033 \sbasedon0\snext255 Normal Indent;}{\qj\sb120 \fs20\lang1033 
+\snext0 Normal;}{\s2\qj \fs20\lang1033 \sbasedon0\snext2 Dense;}{\s3 \b\f4\fs20\lang1033 \sbasedon0\snext3 Listing;}{\s4\sb240\keepn \b\fs32\lang1033 \sbasedon0\snext4 Subsection;}{\s5 \b\f4\fs20\lang1033 \snext5 Teletype;}{\s6\qj\sb120\keepn 
+\fs36\lang1033 \sbasedon0\snext6 Section;}{\s7\qj\sb120 \b\lang1033 \sbasedon0\snext7 Paragraph;}{\s8\qj\fi-1418\li1418\sb120\tx1441 \fs20\lang1033 \sbasedon0\snext8 Description;}{\s9\sb240\keepn \b\fs28\lang1033 \sbasedon4\snext9 Subsubsection;}}{\info
+{\author John Walker}{\operator John Walker}{\creatim\yr1992\mo4\dy5\hr13\min52}{\revtim\yr1992\mo9\dy25\hr13\min1}{\printim\yr1992\mo9\dy25\hr12\min58}{\version18}{\edmins217}{\nofpages39}{\nofwords17404}{\nofchars103806}{\vern16504}}
+\paperw12242\paperh15842\margl851\margr851\margt1441\margb1441\gutter0 \widowctrl\ftnbj \sectd \linex0\endnhere {\footer \pard\plain \s242\qc\sb120\tqc\tx4320\tqr\tx8640 \fs20\lang1033 {\field{\*\fldinst PAGE}{\fldrslt 39}}
+\par }\pard\plain \qc\sb120 \fs20\lang1033 {\fs72 ATLAST
+\par }\pard\plain \s2\qc \fs20\lang1033 {\i\fs32 Autodesk Threaded Language Application System Toolkit
+\par }\pard\plain \qj\li567\ri653\sb120\sl-216 \fs20\lang1033 {\plain \i\lang1033 Open, programmable products are superior to and displace even the}{\plain \i\lang1033 
+ best designed closed applications.  A threaded language, implemented in a single portable C file, allows virtually any program, existing or newly developed, to be made programmable, extensible, and open to user enhancement. 
+\par }\pard\plain \s2\qc \fs20\lang1033 {\fs22 by John Walker
+\par }{\fs22 March 9th, 1990
+\par }\pard \s2\qj\absw390 {\fs52 Y
+\par }\pard \s2\qj OU'D THINK WE'D HAVE LEARNED by now.  It was Autodesk's strategy for AutoCAD{\field\flddirty{\*\fldinst {\up6 SYMBOL 210 \\f "Symbol"}}{\fldrslt }}{\up6  }
+from inception that it should be an open, extensible system.  We waged a five-year uphill battle to bring such a heretical idea to eventual triumph. 
+ Today, virtually every industry analyst agrees that AutoCAD's open architecture was, more than any other single aspect of its design, responsible for its success and the success that Autodesk has experienced.
+\par \pard\plain \qj\sb120 \fs20\lang1033 And yet, even today, we write program after program that is closed\emdash that its users cannot program\emdash 
+that admits of no extensions without our adding to its source code.  If we believe intellectually, from a sound understanding of the economic incentives in the marketplace, that open systems are better, an
+d have confirmed this supposition with the success of AutoCAD, then the only question that remains is {\i why?}  Why not make every program an open program?
+\par \pard \qj\sb120 Well, because it's {\i hard}
+!  Writing a closed program has traditionally been much less work at every stage of the development cycle: easier to design, less code to write, simpler documentation, and far fewer considerations in the test phase.  In addition, closed products are belie
+ved to be less demanding of support, although I'll argue later that this assumption may be incorrect.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 The painful path to programmability
+\par \pard\plain \qj\sb120 \fs20\lang1033 
+Most programs start out as nonprogrammable, closed applications, then painfully claw their way to programmability through the introduction of a limited script or macro facility, succeeded by an increasingly comprehensive interpretive macro language which 
+grows like topsy and without a coherent design as user demands upon it grow.  Finally, perhaps, the program is outfitted with bindings to existing languages such as C.
+\par An alternative to this is adopting a standard language as the macro language for a product.  After our initial foray into the awful menu macro language that still burdens us, AutoCAD took this approach, integrating David Betz\rquote 
+ XLISP, a simple Lisp interpreter which was subsequently extended by Autodesk to add floating point, many additional Common Lisp functions, and, eventually, access to the AutoCAD database.
+\par \pard \qj\sb120 This approach has many attractions.  First, choosing a standard language allows users to avail themselves of existing books and t
+raining resources to learn its basics.  The developer of a dedicated macro language must create all this material from scratch.  Second, an interpretive language, where all programs are represented in ASCII code, is inherently portable across computers an
+d operating systems.  Once the interpreter is gotten to work on a new system, all the programs it supports are pretty much guaranteed to work.  Third, most existing languages have evolved to the point that most of the rough edges have been taken off their
+ design.  Extending an existing language along the lines laid down by its designers is much less likely to result in an incomprehensible disaster than growing an ad-hoc macro language feature by neat-o feature.
+\par \pard \qj\sb120\sl240 Unfortunately, interpreters are {\i slow}, {\i slow}, {\i slow}
+.  A simple calculation of the number of instructions of overhead per instruction that furthers the execution of the program quickly demonstrates that no interpreter is suitable for serious computation.  As long as the interpreter is deployed in the role 
+of a macro language, this may not be a substantial consideration.  Most early AutoLISP{\field\flddirty{\*\fldinst {\fs16\up6 SYMBOL 210 \\f "Symbol"}}{\fldrslt }} programs, for example, spent most of their time submitting commands to AutoCAD with the {
+\b\f4 (command)}
+ function.  The execution time of the program was overwhelmingly dominated by the time AutoCAD took to perform the commands, not the time AutoLISP spent constructing and submitting them.  However, as soon as applications tried to do substantial computatio
+n, for example the parametric object calculations in AutoCAD AEC, the overhead of AutoLISP became a crushing burden, verging on intolerable.  The obvious alternative was to provide a compiled language.  But that, too, has its problems.
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Introducing {\scaps atlast}
+\par \pard\plain \qj\sb120 \fs20\lang1033 {\scaps atlast}{\field{\*\fldinst SYMBOL 212 \\f "Symbol"}{\fldrslt }}
+ is a toolkit that makes applications programmable.  Deliberately designed to be easy to integrate both into existing programs and newly-developed ones, {\scaps atlast}
+ provides any program that incorporates it most of the benefits of programmability with very little explicit effort on the part of the developer.  Indeed, once you begin to \ldblquote think {\scaps atlast}\rdblquote 
+ as part of the design cycle, you'll probably find that the way you design and build programs changes substantially.  I'm coming to think of {\scaps atlast} as the \ldblquote monster that feeds on programs,\rdblquote 
+ because including it in a program tends to shrink the amount of special-purpose code that would otherwise have to be written while resulting in finished applications that are open, extensible, and more easily adapted to other operating environments such
+ as the event driven paradigm.
+\par \pard \qj\sb120 
+The idea of a portable toolkit, integrated into a wide variety of products, all of which thereby share a common programming language seems obvious once you consider its advantages.  It's surprising that such packages aren't commonplace in the industry.  I
+n fact, the only true antecedent to {\scaps atlast} I've encountered in my whole twisted path through this industry was the universal macro package developed in the mid 1970's by Kern Sibbald and Ben Cranston at the University of Maryl
+and.  That package, implemented on Univac mainframes, provided a common macro language shared by a wide variety of University of Maryland utilities, including a text editor, debugger, file dumper, and typesetting language.  While {\scaps atlast}
+ is entirely different in structure and operation from the Maryland package, which was an interpretive string language, the concept of a cross-product macro language and appreciation of the benefits to be had from such a package are directly traceable to 
+those roots.
+\par \pard \qj\sb120 So what {\i is} {\scaps atlast}?  Well{\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }}
+it's FORTH, more or less.  Now I'm well aware that the mere mention of FORTH stimulates a violent immune reaction in many people second, perhaps, only to that induced by the utterance of the dreaded word \ldblquote LISP.\rdblquote 
+  Indeed, more that 12 years after my first serious encounter with FORTH, I am only now coming to feel that I am truly beginning to \ldblquote get it\rdblquote \emdash 
+to understand what it's really about, what its true strengths (and weaknesses) are, and to what problems it can offer un
+iquely effective solutions.  PostScript had a lot to do with my coming to re-examine FORTH, as did my failed attempt in early 1988 to separate AutoCAD's user interface from the geometry engine.  That project, {\i The Leto Protocol}
+, ended with my concluding that to succeed: to create an interface that would not grow to unbounded size, bewildering complexity, and glacial performance, it would be necessary to embed programmability within the core\emdash 
+to provide a set of primitives that could be composed, by the user i
+nterface module, into higher-level operators that could be invoked across the link between the two components.  This programmability would, of course, have to be in a portable form and not involve linking user code into the AutoCAD core.
+\par \pard \qj\sb120 
+In looking for parallels to the problem I faced, PostScript seemed similarly motivated and reasonably effective in accomplishing its goals.  (One can certainly attack PostScript on performance, although I suspect its performance problems stem more from th
+e underlying execut
+ion speed of the graphics primitives and the inefficient ASCII representation of input than any inherent aspect of the language.) Certainly PostScript blew away its competitors, such as Impress and DDL, almost without taking notice of them.  Further, it s
+eemed apparent that PostScript's success was another example in the long list of open, programmable products that triumphed over \ldblquote more comprehensive\rdblquote  but non-extensible ones.
+\par \pard \qj\sb120 Looking at PostScript inevitably brings one back to the language that inspired it,
+ FORTH.  Although FORTH has a reputation for obscurity and seems to attract an unusually high percentage of flaky adherents, it has many attributes that recommend it as a candidate for a portable tool to make any application programmable.
+\par \pard \qj\sb120 {\plain \b\lang1033 It is small.}
+  A minimal implementation of FORTH is a tiny thing indeed, since most of the language can be defined in itself, using only a small number of fundamental primitives.  Even a rich implementation, with extensions such as floating point and mathematical func
+tions,
+ strings, file I/O, compiler writing facilities, user-defined objects, arrays, debugging tools, and runtime instrumentation, is still on the order of one fifth the number of source lines of a Lisp interpreter with far fewer built-in functions, and occupie
+s less than of 70% the object code size.  Runtime data memory requirements are a tiny fraction (often one or two percent) of those required by Lisp, and frequently substantially less that compiled languages such as C.  It's kind of startling to discover t
+hat an entire interpretive and compiled language, including floating point, all the math functions of C, file I/O, strings, etc., can be built, in large model, into a DOS executable of 50964 bytes.  It can.
+\par \pard \qj\sb120 {\plain \b\lang1033 It is fast.}
+  Because it is a threaded language, execution of programs consists not of source level interpretation but simple memory loads and indirect jumps.  Even for compute-bound code, the speed penalty compared to true compilers is often in the range of 5 to 8. 
+ While this may seem a serious price to p
+ay, bear in mind that tokenising Lisp interpreters often exhibit speed penalties of between 60 and 70 to 1 on similar code, and source-level interpreters, such as the macro languages found in many application programs, are often much, much worse than that
+.  In most programs, the execution speed of FORTH and compiled code will be essentially identical, particularly when FORTH is used largely in the role of a macro language, calling primitives within an application coded in a compiled language.
+\par \pard \qj\sb120 {\plain \b\lang1033 It is portable}{\plain \b\lang1033 .}
+  If the implementation rigidly specifies the memory architecture and data types used (and this can be done with essentially no sacrifice in speed), FORTH programs can be made 100% compatible among implementations.  Programs can be transferred as ASCII fi
+les, universally interchangeable across systems.  Application data types defined in FORTH, using its object creation facilities, automatically gain the portability of the underlying data types.
+\par \pard \qj\sb120 {\plain \b\lang1033 It is easy to extend. } Because the underlying architecture is 
+very simple (unlike, for example, that of a Lisp interpreter), any competent C programmer with a minimum of indoctrination can begin adding C-coded primitives to a C-implemented FORTH within hours.  These C primitives will run at full speed, yet be able t
+o be parameterised, placed in definitions, used in loops, etc., from any FORTH construct.  This leads to a different way of building applications.  Rather than programming the structure and primitives as a unified process, one builds the application-uniqu
+e 
+primitives that are needed, tests them interactively as they are built, then assembles the application with glue code written either in FORTH or C depending upon considerations of efficiency, security, and the extent to which one wishes to make the underl
+ying primitives visible to and accessible by the user.  Unlike conventional program development processes, these considerations are not yes-or-no decisions but, for the most part, continua along which the product may be positioned at the point desired and
+ subsequently adjusted based upon market feedback.
+\par \pard \qj\sb120 {\plain \b\lang1033 It is interactive. }
+ While most portions of a FORTH program are compiled into a form equally compact and comparable in execution speed to machine code, direct user interaction can always be furnished simply by providing a connection from the user's keyboard to the interprete
+r (or conversely, blocked by denying the user that access).  That such interactivity expedites program development compared to the normal edit, compile, link, debug cycle is well known.  Th
+at FORTH can provide it without sacrificing execution speed is one of its major attractions.
+\par \pard \qj\sb120 {\plain \b\lang1033 It supports multiple operating paradigms.}
+  Once the technique of encapsulating the functionality of a product in primitives accessible from the FORTH environment is mastered, it is possible to build programs in which the core facilities (for example, database access, geometric calculations, grap
+hical display of results, calculating mass properties) can be composed into sequences that can be invoked from a program, c
+alled interactively from a command line, triggered by a menu selection or pick of a button in a dialogue, or virtually any other form of interaction imaginable.  Further, since any stimulus that affects the program simply executes a FORTH word, and such w
+ords can be easily redefined with a small amount of FORTH text, any of these operating modes can be rendered programmable by the implementor, third party developer, or user, at the discretion of the designer.
+\par \pard \qj\sb120 {\plain \b\lang1033 It is surprisingly modern.}  Although FORTH appea
+rs to be an artifact of the bygone days of 64K computers and teletype machines, many of its concepts, viewed through contemporary eyes, are remarkably up to date.  For example, few languages share its ability to define new fundamental data types, along wi
+th methods that operate upon them.  The multiple dictionary facility of FORTH permits one to create objects that inherit, by default, properties of their parents, and to implement such structures in an efficient manner.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 {\scaps atlast} and FORTH
+\par \pard\plain \qj\sb120 \fs20\lang1033 All of these advantages do not erase some substantial shortcomings of FORTH, particularly in the modern programming environment.  In defining {\scaps atlast}
+, I have attempted to conform to FORTH wherever possible, without compromising my overall goal of creating a system that would allow a developer to factor out the programmability from an application and hand it to a standard module to manage, precisely as
+ C programmers delegate I/O and mathematical function evaluation to library routines provided for those purposes.
+\par \pard \qj\sb120 {\scaps atlast} is based on the FORTH-83 standard and incorporates many of the optional extensions and supplementary words defined in that standard.  Once the basic differences between FORTH and {\scaps atlast}
+ have been mastered, one can use a FORTH reference manual for most user-level {\scaps atlast} programming tasks.  The major differences between FORTH-83 and {\scaps atlast} are as follows.
+\par \pard \qj\sb120 {\plain \b\lang1033 Integers are 32 bits.}  To bring forth another language burdened with 16 bit integers in the year 1990 is, to my mind, unthinkable.  We are rapidly entering an era w
+here the vast majority of C language environments agree that the {\b\f4 int} type is 32 bits, and applications may be expected to rapidly conform to this standard.  Consequently, in {\scaps atlast}, all integers are 32 bits and no {\b\f4 short}
+ data type is provided.  Note that this does not imply incompatibility with C environments with 16 bit {\b\f4 int}s\emdash {\scaps atlast}
+ works perfectly with Turbo C on MS-DOS and Microsoft C on OS/2, for example, because all integers are explicitly declared as {\b\f4 long}.
+\par \pard \qj\sb120 {\plain \b\lang1033 Identifiers are arbitrary length.}  In {\scaps atlast}, y
+ou need not struggle with the tradeoff between memory efficiency and uniqueness of identifiers that plagues the FORTH programmer.  Identifiers are limited in length only to the size of the built-in token assembly buffer, which defaults to 128 characters, 
+and all characters are significant.  Again, this change brings {\scaps atlast}
+ more closely into conformance with contemporary language designs.  To implement this change, symbol names were moved from the heap into dynamically allocated buffers, taking advantage of 
+the underlying C runtime environment.  This makes the task of adjusting heap size easier (and changes some of the arcana of programs that fiddle with the low-level structure of the system, but everything you could do in FORTH, you can do in {\scaps atlast
+}, albeit in a slightly different way).
+\par \pard \qj\sb120 {\plain \b\lang1033 Floating point is supported.}
+  Floating point constants, variables, operators, scanning and formatting facilities, and a rich set of mathematical functions are provided as primitives (which can be turned off at compile time, if
+ not needed).  Compatibly with C, the default floating point type is 64 bit C {\b\f4 double} precision numbers.  The only assumption made by {\scaps atlast}
+ about floating point format is that a floating point number is twice the size of an integer.  The rational number facilities of FORTH are not provided in {\scaps atlast}.
+\par \pard \qj\sb120 {\plain \b\lang1033 Strings are supported.}  Strings are supported at a much higher level in {\scaps atlast}
+ than in FORTH.  String literals are provided in a general and explicit manner using the C syntax for escaping special characters.  A rich set of string processing functions which closely follow those of C are provided ({\b\f4 STRCPY}, {\b\f4 STRCAT}, {
+\b\f4 STRLEN}{\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }}
+).  A mechanism of cyclically allocated temporary string buffers provides more flexible manipulation of strings in interactive input.  Strings continue to follow the pointer and buffer model used by both C and FORTH.  String-intensive programs should run 
+at about the same speed as their equivalents in C or FORTH.
+\par \pard \qj\sb120 {\plain \b\lang1033 Debugging facilities are provided.}  {\scaps atlast} can be configured at
+ compile time with as much or as little error checking and debugging support as is appropriate for the application in which it is being integrated and the development status of that product.  During development and test, one can configure {\scaps atlast}
+ with an optional {\b\f4 TRACE} that follows program execution primitive by primitive, a {\b\f4 WALKBACK}
+ that prints the active word stack when an error is detected, precise overflow and underflow checking of both the evaluation and return stacks, and close to bulletproof pointer c
+hecking that catches attempts to load or store outside the designated heap area.  Although sufficiently crafty programs can still crash {\scaps atlast}
+, errors that slip past the checking and wreak havoc are extremely rare, even in unprotected environments such as MS-DOS.  This, combined with the fundamental interactivity of {\scaps atlast}
+, makes for a friendly debugging environment.  All the runtime error checking can be disabled to reduce memory and execution time overhead, when and where appropriate.
+\par \pard \qj\sb120 {\plain \b\lang1033 File I/O follows C a}{\plain \b\lang1033 nd Unix conventions.}  FORTH was developed before the age of standard operating systems; in its early days, it {\i was}
+ the operating system of many of the minicomputers which ran it.  Now that the Unix file system interface has become a {\i de facto} industry standard, {\scaps atlast} conforms to that model of file system operation.  {\b\f4 FILE}
+ variables correspond to C language file descriptors, and a familiar set of primitives such as {\b\f4 FOPEN}, {\b\f4 FCLOSE}, {\b\f4 FREAD}, {\b\f4 FSEEK}, etc., are used in the same manner as in C.  Line-level I/O is provi
+ded as well, offering AutoCAD-compatible automatic recognition of ASCII files written with any of the current end of line conventions.
+\par \pard \qj\sb120 {\plain \b\lang1033 Extensive support for embedding is provided.}  Unlike FORTH, {\scaps atlast}
+ is intended to be invisibly embedded within application programs.  Other than providing a common framework for programmability and extension, the application continues to \ldblquote look like\rdblquote  itself, not like {\scaps atlast} or FORTH.  Thus, {
+\scaps atlast} is not \ldblquote in control\rdblquote  in the sense that the main loop of a FORTH system is; it is
+ a slave, called by the application at appropriate times.  Accomplishing this required inverting the control structure from that of a typical FORTH system and providing a comprehensive set of C callable linkages by which the application communicates with 
+{\scaps atlast}.  In addition, primitives are provided which aid in tuning {\scaps atlast}
+ to the precise needs of the host program.  The developer can monitor memory usage, note which primitives are used and which are not, and configure a custom version of {\scaps atlast} ideally suited to the needs and environment of the host program.
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 A note on what follows
+\par \pard\plain \qj\sb120 \fs20\lang1033 In order to illustrate {\scaps atlast}, the balance of this paper employs numerous sample programs and fragments of {\scaps atlast}
+ code.  A reader with a basic understanding of FORTH should, along with the definitions of the {\scaps atlast}
+ primitives given at the end of the paper, be able to figure out what is going on in the examples.  If you've never encountered FORTH before, the examples may seem little more than gibberish.  Don't worry\emdash once you get th
+e hang of it, or consult one of the many excellent FORTH books available (I recommend {\i Mastering Forth}, by Anderson and Tracy, New York: Brady Books/Prentice-Hall, 1984), all will become clear.
+\par \pard \qj\sb120 Until then, don't be put off by the examples.  Just skim over them {\i as if}
+ you understood them.  You'll still pick up the flavour of the package, how it integrates with applications, and what you can do with it.  I'd like to be able to leave my brain and fingers running overnight and find a complete {\scaps atlast}
+ reference man
+ual that could stand by itself sitting on my machine the next day.  Alas, I lack overnight batch capability and have no opportunity to undertake such a task in prime time at present.  I decided to supply the documentation in this oddly incomplete form to 
+get the essentials across to those who can understand it rather than defer the entire effort until I can complete a hundred pages or so of documentation that largely duplicates a FORTH reference manual.
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Interactive {\scaps atlast}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Although {\scaps atlast} is intended to be e
+mbedded in application programs, for learning the language, experimenting with small programs, and using it as a desk calculator, it's handy to have an interactive stand-alone version.  The {\scaps atlast} source distribution includes a main program, {
+\b\f4 atlmain.c}, that can be linked with {\scaps atlast} to provide such a utility.  The executable, called {\b\f4 atlast} on Unix and {\b\f4 ATLAST.EXE} on MS-DOS, is built with all error checking enabled to aid in program development.
+\par \pard \qj\sb120 To experiment with {\scaps atlast}, execute the interactive program with:
+\par \pard \qj\sb120 {\b\f4 atlast}
+\par \pard \qj\sb120 You'll be prompted with:
+\par \pard \qj\sb120 {\b\f4  ->
+\par }\pard \qj\sb120 as long as {\scaps atlast} is in the interpretive state.  For example, you might load {\scaps atlast} and experiment with various rational approximations of {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }}.
+\par \pard \qj\sb120 
+\par \pard\plain \s2\qj \fs20\lang1033 {\b\f4 % atlast     
+\par }{\b\f4 -> 22.0 7.0 f/ f.
+\par }{\b\f4       3.14286 -> 377.0 120.0 f/ f.
+\par }{\b\f4       3.14167 -> ^D
+\par }{\b\f4 %
+\par }\pard\plain \qj\sb120 \fs20\lang1033 Note that {\scaps atlast} does not explicitly return the carriage after output; use the {\b\f4 CR} primitive if you wish this done.  Rather than printing each number and comparing it manually against 
+{\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }}, we can define a {\i constant} with the value of {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }} and a new {\i word}
+ (or function) that compares a value against it and prints the error residual.  Here's how we might do that:
+\par \pard \qj\sb120 
+\par \pard\plain \s2\qj \fs20\lang1033 {\b\f4 % atlast
+\par }{\b\f4 -> 1.0 atan 4.0 f* 2constant pi
+\par }{\b\f4 -> : pierr
+\par }{\b\f4 :>   pi f- fabs f. cr
+\par }{\b\f4 :> ;
+\par }{\b\f4 -> 3.0 pierr
+\par }{\b\f4 .141593
+\par }{\b\f4 -> 22.0 7.0 f/ pierr
+\par }{\b\f4 0.00126449
+\par }{\b\f4 -> 355.0 113.0 f/ pierr
+\par }{\b\f4 2.66764e-07
+\par }{\b\f4 -> ^D
+\par }\pard\plain \qj\sb120 \fs20\lang1033 We can also load programs from files into Interactive {\scaps atlast}.  Suppose we want to investigate the behaviour of the Leibniz\rquote  famous 1673 series that converges (achingly slowly) to {\field{\*\fldinst 
+SYMBOL 112 \\f "Symbol"}{\fldrslt }}.  The series is:
+\par \pard \qj\sb120 \tab {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }}/4 = 1 {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }} 1/3 + 1/5 {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }} 1/7 + 1/9 {\field{\*\fldinst SYMBOL 45 \\f "Symbol"
+}{\fldrslt }} {\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }}
+\par \pard \qj\sb120 We can create a file, using the text editor of our choice, containing the following:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 \\   Series approximations of Pi
+\par }{\b\f4 
+\par }{\b\f4 \\   Leibniz: pi/4 = 1 - 1/3 + 1/5 - 1/7 ...
+\par }{\b\f4 
+\par }{\b\f4 : leibniz ( n \endash - fpi )
+\par }{\b\f4      1.0 1.0
+\par }{\b\f4      4 pick 1 do
+\par }{\b\f4          2.0 f+  \\ denom += 2
+\par }{\b\f4          2dup
+\par }{\b\f4          }{\b\f4 i 1 and if
+\par }{\b\f4              fnegate
+\par }{\b\f4          then
+\par }{\b\f4          1.0 2swap f/
+\par }{\b\f4          2rot f+
+\par }{\b\f4          2swap
+\par }{\b\f4      loop
+\par }{\b\f4      2drop
+\par }{\b\f4      rot drop
+\par }{\b\f4      4.0 f*
+\par }{\b\f4 ;
+\par }{\b\f4 
+\par }{\b\f4 \\   Reference value of Pi
+\par }{\b\f4 
+\par }{\b\f4 1.0 atan 4.0 f* 2constant pi
+\par }{\b\f4 
+\par }{\b\f4 \\ Calculate and print error
+\par }{\b\f4 
+\par }{\b\f4 : pierr
+\par }{\b\f4      pi f- fabs f. cr
+\par }{\b\f4 ;
+\par }\pard\plain \qj\sb120 \fs20\lang1033 
+If this seems like gibberish, don't worry!  Remember the first time you looked at a Lisp or C program.  If you want to decode some of the structure of this program before learning the language, refer to the definitions of {\scaps atlast}
+ primitives at the back of this manual, remember that {\scaps atlast} is a reverse Polish stack language, and note that \ldblquote {\b\f4 \\}\rdblquote  is a comment delimiter that causes the rest of the line to be ignored and that \ldblquote {\b\f4 (}
+\rdblquote  is a comment delimiter that ignores all text until the next \ldblquote {\b\f4 )}\rdblquote .
+\par \pard \qj\sb120 If this file is saved as {\b\f4 leibniz.atl}, we can load the program into Interactive {\scaps atlast} with the command:
+\par \pard \qj\sb120 {\b\f4 atlast -ileibniz
+\par }\pard \qj\sb120 {\scaps atlast} will compile the program in the file, report any errors, and if no errors are found enter the interactive interpretation mode.  The definition of {\b\f4 leibniz}
+ performs the number of iterations specified by the number on the top of the stack and leaves the resulting series approximation to {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }} on the top of the stack.
+\par \pard \qj\sb120 We can play with this definition as follows:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 % atlast -ileibniz
+\par }{\b\f4 10 leibniz f.
+\par }{\b\f4 3.04184 -> 100 leibniz f.
+\par }{\b\f4 3.13159 -> 1000 leibniz f.
+\par }{\b\f4 3.14059 -> 10000 leibniz f.
+\par }{\b\f4 3.14149 ->
+\par }\pard\plain \qj\sb120 \fs20\lang1033 Well, we can see it's converging, but not very fast.  Since we can define new compiled words on the fly, let's improvise
+ a definition that will print the value and its error for increments of 10000 iterations, then run that program.  Continuing our session above:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 -> : itest 0 do i 1+ 10000 * dup .
+\par }{\b\f4 :> leibniz 2dup f. pierr  loop ;
+\par }{\b\f4 -> 5 itest
+\par }{\b\f4 10000 3.14149 0.0001
+\par }{\b\f4 20000 3.14154 5e-05
+\par }{\b\f4 30000 3.14156 3.33333e-05
+\par }{\b\f4 40000 3.14157 2.5e-05
+\par }{\b\f4 50000 3.14157 2e-05
+\par }{\b\f4 -> ^D 
+\par }\pard\plain \qj\sb120 \fs20\lang1033 As you can see (even if you don't understand), we've mixed compiled code, interpreted code, and on-the fly definition of new compiled functions in a seamless manner.
+\par You can also run an {\scaps atlast} program in batch mode simply by specifying its name on the {\scaps atlast} command line.  If, for example, you added the lines:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 \\   Run iteration vs. error report
+\par }{\b\f4 : itest
+\par }{\b\f4      0 do
+\par }{\b\f4          i 1+ 10000 * dup . leibniz
+\par }{\b\f4          2dup f. pierr
+\par }{\b\f4      loop
+\par }{\b\f4 ;
+\par }{\b\f4 10 itest
+\par }\pard\plain \qj\sb120 \fs20\lang1033 to the end of the {\b\f4 leibniz.atl} file, creating a new file called {\b\f4 leibbat.atl}, you could run the program in batch mode as follows:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 % atlast leibbat
+\par }{\b\f4  10000 3.14149 0.0001
+\par }{\b\f4  20000 3.14154 5e-05
+\par }{\b\f4  30000 3.14156 3.33333e-05
+\par }{\b\f4  4}{\b\f4 0000 3.14157 2.5e-05
+\par }{\b\f4  50000 3.14157 2e-05
+\par }{\b\f4  60000 3.14158 1.66667e-05
+\par }{\b\f4  70000 3.14158 1.42857e-05
+\par }{\b\f4  80000 3.14158 1.25e-05
+\par }{\b\f4  90000 3.14158 1.11111e-05
+\par }{\b\f4  100000 3.14158 1e-05
+\par }{\b\f4 %
+\par }\pard\plain \qj\sb120 \fs20\lang1033 (By the way, as is apparent, this is clearly no way to compute {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }}!  Try this, instead, if you're serious about pumping {\field{\*\fldinst SYMBOL 112 \\f "Symbol"
+}{\fldrslt }}.)
+\par \pard \qj\sb120 
+\par \pard\plain \s2\qj \fs20\lang1033 {\b\f4 \\   Tamura-Kanada fast Pi algorithm
+\par }\pard \s2\qj 
+\par \pard\plain \s3 \b\f4\fs20\lang1033 2variable a
+\par 2variable b
+\par 2variable c
+\par 2variable y
+\par 
+\par : tamura-kanada ( n -\endash  fpi )
+\par      1.0 a 2!
+\par      1.0 2.0 sqrt f/ b 2!
+\par      0.25 c 2!
+\par      1.0
+\par      rot 1 do
+\par          a 2@ 2dup y 2!
+\par          b 2@ f+ 2.0 f/ a 2!
+\par          b 2@ y 2@ f* sqrt b 2!
+\par          c 2@ 2over a 2@ y 2@ f-
+\par          2dup f* f* f- c 2! 2.0 f*
+\par      loop
+\par      2drop
+\par      a 2@ b 2@ f+ 2dup f* 4.0 c 2@ f* f/
+\par ;
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Debugging
+\par \pard\plain \qj\sb120 \fs20\lang1033 As befits an interactive language, {\scaps atlast} provides debugging support.  You can trace through the execution of a program word by word by enabling the {\b\f4 TRACE}
+ facility.  To turn tracing on, enter the sequence:
+\par \pard \qj\sb120 {\b\f4 1 trace}
+\par \pard \qj\sb120 If you've loaded a definition of the factorial function as follows:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 : factorial
+\par }{\b\f4          dup 0= if
+\par }{\b\f4             drop 1
+\par }{\b\f4          else
+\par }{\b\f4             dup 1- factorial *
+\par }{\b\f4          then
+\par }{\b\f4 ;
+\par }\pard\plain \qj\sb120 \fs20\lang1033 and execute it under trace, you'll see output as follows:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par % atlast -ifact
+\par  -> 1 trace
+\par  -> 3 factorial .
+\par 
+\par Trace: FACTORIAL
+\par Trace: DUP
+\par Trace: 0=
+\par Trace: ?BRANCH
+\par Trace: DUP
+\par Trace: 1-
+\par Trace: FACTORIAL
+\par Trace: DUP
+\par Trace: 0=
+\par Trace: ?BRANCH
+\par Trace: DUP
+\par Trace: 1-
+\par Trace: FACTORIAL
+\par Trace: DUP
+\par Trace: 0=
+\par Trace: ?BRANCH
+\par Trace: DUP
+\par Trace: 1-
+\par Trace: FACTORIAL
+\par Trace: DUP
+\par Trace: 0=
+\par Trace: ?BRANCH
+\par Trace: DROP
+\par Trace: (LIT) 1
+\par Trace: BRANCH
+\par Trace: EXIT
+\par Trace: *
+\par Trace: EXIT
+\par Trace: *
+\par Trace: EXIT
+\par Trace: *
+\par Trace: EXIT
+\par Trace: . 6 -> ^D
+\par \pard\plain \qj\sb120 \fs20\lang1033 You can turn off tracing with \ldblquote {\b\f4 0 trace}\rdblquote .
+\par \pard \qj\sb120 When an error occurs, a walkback is normally printed that lists the active words starting with the one in which the error occurred, proceeding through levels of nesting to the outermost, interpretive level.  If the {\b\f4 WALKBACK}
+ package is configured (see page {\field{\*\fldinst pageref wback}{\fldrslt 20}}), the walkback is printed by default.  You can disable it with \ldblquote {\b\f4 0 walkback}\rdblquote .  Here is a sample error walkback report:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par % atlast -ileibniz 
+\par -> leibniz 
+\par Stack underflow.  
+\par Walkback:
+\par     ROT
+\par     LEIBNIZ
+\par  ->
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Integrating {\scaps atlast}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Unlike most languages, {\scaps atlast}
+ is not structured as a main program; it is a subroutine.  You can invoke it when and where you like within your application, providing as much or as little programmability as is appropriate.  Before we get into the details of the interface betw
+een an application and {\scaps atlast}, it's worth showing, by example, just how simple a program can be that accesses all the facilities of {\scaps atlast} mentioned so far.  The following main program, linked with the {\scaps atlast}
+ object module, constitutes a fully-functional interactive {\scaps atlast} interpreter.  It lacks the refinements of Interactive {\scaps atlast}
+ such as console break processing, batch mode, loading definition files, prompting with compilation state, and the like, but any program that Interactive {\scaps atlast} will run can be run by this program, if submitted to it by input redirection.
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par #include <stdio.h>
+\par #include "atlast.h" 
+\par main() 
+\par \{
+\par      char t[132];
+\par      atl_init();
+\par      while (printf("-> "), fgets(t, 132, stdin) != NULL)
+\par          atl_eval(t);
+\par      return 0; 
+\par \}
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Configuring {\f4 atlast.c}
+\par \pard\plain \qj\sb120 \fs20\lang1033 {\*\bkmkstart gconf}T{\*\bkmkend gconf}he first step in integrating {\scaps atlast} is building a suitable version of {\b\f4 atlast.c}
+ that can be linked with your application.  In order to do this, you must choose the modes with which you wish {\scaps atlast} built.  These modes are normally specifi
+ed by compile-time definitions supplied on the C compiler call line.  Unless you request individual configuration of {\scaps atlast} subpackages, a fully functional version of {\scaps atlast}
+ will be built.  In that case, you need only be concerned with the settings of the following compile-time variables.
+\par \pard\plain \s8\qj\fi-1418\li1418\sb120\tx1441 \fs20\lang1033 {\b\f4 ALIGNMENT}\tab If double precision floating point numbers must be aligned on 8 byte boundaries in memory, define {\b\f4 ALIGNMENT}.  If not defined, {\scaps atlast}
+ assumes that 4 byte alignment is adequate for these numbers.  (Conditional code in {\b\f4 atldef.h} attempts to define {\b\f4 ALIGNMENT} on processors which require it, but its tests may omit your machine.)  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 EXPORT}\tab If you are simply invoking {\scaps atlast} as a macro engine and do not require access to its internal data structures, leave {\b\f4 EXPORT}
+ undefined.  If your program adds application-specific primitives to {\scaps atlast} (as most do), define {\b\f4 EXPORT} and include the file {\b\f4 atldef.h}
+ in all modules that require that access.  The stack, return stack, and heap pointers will be made external, names of internal symbols within {\scaps atlast} will be redefined to special names beginning with {\b\f4 atl_}
+ to avoid conflicts with your program, and additional interface code is enabled to provide your primitives full access to the {\scaps atlast} runtime environment. 
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 MEMSTAT}\tab If you want to enable the runtime memory usage monitor, accessible from the {\b\f4 MEMSTAT} primitive or the {\b\f4 atl_memstat()} function call, define {\b\f4 MEMSTAT}. 
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 NOMEMCHECK}\tab To disable all runtime stack, heap, and pointer checking, define {\b\f4 NOMEMCHECK}.  This will yield a dramatic increase in execut
+ion speed, but should be enabled only in closed applications after you're sure all the bugs are securely in hiding.  When built with {\b\f4 NOMEMCHECK}, an {\scaps atlast} program is no more secure than a pointer-mad C program.
+\par \pard\plain \qj\sb120 \fs20\lang1033 When building {\scaps atlast} on MS-DOS or OS/2, you must use a large data model (32 bit data addresses).  {\scaps atlast}
+ treats all integers as 32 bits and assumes that data pointers are at least that long.  Attempting to build with 16 bit data addresses will cause compile errors that indicate violation of design assumptions.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Initialising: {\f4 atl_init}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Before your application makes any other calls to {\scaps atlast}, you must call {\b\f4 atl_init} to initialise its dynamic storage and create the data structures used to evaluate {\scaps atlast} expressions.
+\par \pard \qj\sb120 To initialise {\scaps atlast} with the default memory configuration, just call:
+\par \pard \qj\sb120 {\b\f4 atl_init();}
+\par \pard \qj\sb120 The stack, return stack, heap, and initial dictionary are created and {\scaps atlast} is prepared for execution.  You can adjust the size of the memory allocated by {\scaps atlast} by setting the following variables (defined in {\b\f4 atl}
+{\b\f4 ast.h}) before calling {\b\f4 {\*\bkmkstart memall}atl_init}.{\*\bkmkend memall}
+\par \pard\plain \s8\qj\fi-1560\li1560\sb120\tx1560 \fs20\lang1033 {\b\f4 atl_stklen}\tab Evaluation (data) stack length.  Expressed as a number of 4 byte stack items. Default 100. 
+\par {\b\f4 atl_rstklen}\tab Return stack length.  Expressed as a number of 4 byte return stack pointer items.  Default 100. 
+\par {\b\f4 atl_heaplen}\tab Heap length.  Specified as a number of 4 byte stack items.  Default 1000. 
+\par \pard \s8\qj\fi-1560\li1560\sb120\tx1560 {\b\f4 atl_ltempstr}\tab Temporary string length.  Gives the length of the buffers used to hold temporary strings entered in interpretive mode and created by certain primitives.  Default 256. 
+\par \pard \s8\qj\fi-1560\li1560\sb120\tx1560 {\b\f4 atl_ntempstr}\tab Number of temporary strings.  Specifies the number of temporary strings.  Temporary strings are used in rotation; if more than {\b\f4 atl_ntempstr}
+ are used without storing out the oldest result, it will be overwritten.  Default 4.
+\par \pard\plain \qj\sb120 \fs20\lang1033 Applications can allow {\scaps atlast} programs they load to override default memory allocation specifications with {\i prologue statements}.  See page {\field{\*\fldinst pageref prologue}{\fldrslt 19}}
+ for details.  Deeply embedded applications, such as those programmed into ROMs, may wish to assign the {\scaps atlast} dynamic storage areas to predefined areas of memory instead of requesting them with {\b\f4 malloc()}
+.  If the base address pointer of an area is set nonzero before {\b\f4 atl_init} is called, the address specified will be used for that region; no buffer will be allocated.  If you take advantage of this facility, please read the code for {\b\f4 
+atl_init()} in {\b\f4 atlast.c} carefully and make sure the storage you supply is as long as the various length cells specify.  Note in particular that the system state word, temporary string buffers, an
+d heap are consolidated into one contiguous area of memory.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Evaluating: {\f4 atl_eval}
+\par \pard\plain \qj\sb120 \fs20\lang1033 To evaluate a string containing {\scaps atlast} program text, call:
+\par {\i stat}{\b\f4  = atl_eval(}{\i string}{\b\f4 );}
+\par \pard \qj\sb120 where {\i string} is a string containing the text to be evaluated and {\i stat} is an integer giving the status of the evaluation.  Mnemonics for evaluation status codes are defined in {\b\f4 atlast.h}, and have the following meanings:
+
+\par \pard\plain \s2\qj \fs20\lang1033 {\b\f4 
+\par }\pard \s2\qj {\b\f4 ATL_SNORM}\tab \tab No error. 
+\par {\b\f4 ATL_STACKOVER}\tab Stack overflow 
+\par {\b\f4 ATL_STACKUNDER}\tab Stack underflow 
+\par {\b\f4 ATL_RSTACKOVER}\tab Return stack overflow 
+\par {\b\f4 ATL_R}{\b\f4 STACKUNDER}\tab Return stack overflow 
+\par {\b\f4 ATL_HEAPOVER}\tab Heap overflow 
+\par {\b\f4 ATL_BADPOINTER}\tab Bad heap pointer 
+\par {\b\f4 ATL_UNDEFINED}\tab Undefined word 
+\par {\b\f4 ATL_FORGETPROT}\tab Attempt to {\b\f4 FORGET} protected symbol 
+\par {\b\f4 ATL_NOTINDEF}\tab Compiler word outside definition 
+\par {\b\f4 ATL_RUNSTRING}\tab Runaway string 
+\par {\b\f4 ATL_RUNCOMM}\tab \tab Runaway comment in file 
+\par {\b\f4 ATL_BREAK}\tab \tab Asynchronous break signal received 
+\par {\b\f4 ATL_DIVZERO}\tab \tab Attempt to divide by zero 
+\par \pard\plain \qj\sb120 \fs20\lang1033 In addition to these status codes, a program that calls {\b\f4 atl_eval} may determine the current state of {\scaps atlast} by examining external variables.  If a multi-line comment awaiting termination with a 
+\ldblquote {\b\f4 )}\rdblquote  is active, {\b\f4 atl_comment} will be nonzero.  If the definition of a word (colon definition) is currently pending, the variable {\b\f4 state} (accessible only if {\b\f4 EXPORT} is defined and {\b\f4 atldef.h}
+ is included) will be nonzero.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Loading files: {\f4 atl_load}
+\par \pard\plain \qj\sb120 \fs20\lang1033 To load an entire file containing {\scaps atlast} program text, call:
+\par {\i stat}{\b\f4  = atl_load(}{\i file}{\b\f4 );}
+\par \pard \qj\sb120 where {\i file} is a C file descriptor (type {\b\f4 FILE *}) designating the file, currently open for input and positioned before the first byte of the {\scaps atlast} program to be loaded.  The program is read, and {\i stat}
+ is the status resulting from loading and executing the {\scaps atlast} program in that file.  The status codes are the same as those given above for the {\b\f4 atl_eval} function.  The {\b\f4 atl_load}
+ function reads text files in any of the end of line conventions recognised by AutoCAD; ASCII files in any of these formats may be loaded by any implementation of {\scaps atlast}
+.  If the host system requires binary files to be identified at open time, files containing {\scaps atlast} programs to be loaded with {\b\f4 atl_load} should be opened in {\i binary}
+ mode, even though they nominally contain ASCII text.  Binary mode permits correct interpretation of all the end of line delimiters accepted by AutoCAD.
+\par \pard \qj\sb120 The {\b\f4 atl_load} function uses {\b\f4 atl_mark} to save the runtime status before loading the file.  If an error occurs, it attempts to restore the {\i status quo ante} by performing an {\b\f4 atl_unwind}
+.  If the file loaded included interpretive mode code that modified preexisting objects on the heap, those changes will not be reversed if an error occurs whilst loading the file.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Marking: {\f4 atl_mark}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Applications may wish to undertake a series of {\scaps atlast}
+ operations which might result in a runtime evaluation error.  In that event, the application will normally want to undo definitions made by the program that errored.  To mark one's place before embarking upon a potentially perilous {\scaps atlast}
+ program, use:
+\par \pard \qj\sb120 {\b\f4 atl_statemark mk;
+\par }{\b\f4 atl_mark(&mk);
+\par }\pard \qj\sb120 The current position of the stack, return stack, heap, and dictionary are saved in the {\b\f4 atl_s}{\b\f4 tatemark} structure.  A subsequent {\b\f4 atl_unwind}
+ call will roll each of those dynamic storage areas back to the position at the designated {\b\f4 atl_mark}.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Reversing changes: {\f4 atl_unwind}
+\par \pard\plain \qj\sb120 \fs20\lang1033 To roll back all changes to the stack, return stack, heap allocation, and dictionary to the state saved in an {\b\f4 atl_statemark} object with {\b\f4 atl_mark}, call:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par atl_statemark mk;
+\par 
+\par atl_unwind(&mk);
+\par \pard\plain \qj\sb120 \fs20\lang1033 The allocation pointers for all the storage areas are reset to their positions at the time {\b\f4 atl_mark} was called, but changes to heap variables made by storing through pointers after the {\b\f4 atl_mark}
+ are not reversed.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Asynchronous break: {\f4 atl_break}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Interactive applications of {\scaps atlast}
+ must allow the user to escape infinite loops and other accidentally initiated lengthy computations.  If the system provides a facility for responding to user interrupt requests, {\scaps atlast}
+ allows execution of programs under its control to be terminated through the {\b\f4 atl_break} mechanism.
+\par \pard \qj\sb120 If {\b\f4 BREAK} is defined at compile time, the {\b\f4 atl_break()} function and support for asynchronous break is enabled.  When the application receives an asynchronous break, it should call {\b\f4 atl_break()}
+ to notify the currently running {\scaps atlast} program of the break signal.  If no {\scaps atlast} program is running at the time of the signal, no harm is done.  The application break routine should always call {\b\f4 atl_break()}
+ rather than try to determine whether {\scaps atlast} is active.  If an {\scaps atlast} program was executing at the time of the break signal, the application that invoked it, whether by {\b\f4 atl_eval}, {\b\f4 atl_load}, or {\b\f4 atl_exec}
+, will be notified of the abnormal termination by the return of the {\b\f4 ATL_BREAK} status.
+\par \pard \qj\sb120 The {\b\f4 atl_break} function simply sets a flag examined by the inner loop of the {\scaps atlast}
+ evaluator; it does not actually terminate execution.  Consequently, it may safely be called at any time, even from hardware interrupt service routines.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Showing memory status: {\f4 atl_memstat}
+\par \pard\plain \qj\sb120 \fs20\lang1033 In the final stage of optimising an application incorporating {\scaps atlast} for shipment, one may wish to adjust the memory allocation parameters to eliminate wasted space while 
+providing reasonable margins for user extensions after shipment.  To set the parameters wisely, one must know the baseline memory usage of the application.  If {\b\f4 atlast.c} is built with {\b\f4 MEMSTAT}
+ defined, this can be obtained either by executing the {\b\f4 MEMSTAT} primitive within the {\scaps atlast} program or by calling the {\b\f4 atl_memstat}
+ function at an opportune time within the application.  In either case, a memory usage report similar to the following example is written to the standard output stream.
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard\plain \fs20\lang1033 {\b\f4              Memory Us}{\b\f4 age Summary
+\par }{\b\f4 
+\par }{\b\f4               Current  Maximum  Items   Percent
+\par }{\b\f4 Memory Area    usage    used  allocated in use 
+\par }{\b\f4  Stack            0        9     100       0
+\par }{\b\f4  Return stack     0        4     100       0
+\par }{\b\f4  Heap           227      227    1000      22
+\par }\pard\plain \s3 \b\f4\fs20\lang1033 
+\par \pard\plain \qj\li567\ri369\sb240\keep\keepn\box\brdrs\brdrw30\brsp20 \shading1000 \fs20\lang1033 {\plain \b\lang1033 Note:}{\plain \lang1033  to use any of the  following functions, you must compile }{\plain \b\f4\lang1033 atlast.c}{\plain \lang1033 
+ and the modules  that call them with }{\plain \b\f4\lang1033 EXPORT}{\plain \lang1033  defined, and you must include the  header file }{\plain \b\f4\lang1033 atldef.h}{\plain \lang1033  in files that call them.
+\par }\pard\plain \s4\sb240\keepn \b\fs32\lang1033 Looking up words:{\plain \f4\fs20\lang1033  }{\f4 atl_lookup}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Your application can look up words in the {\scaps atlast} dictionary, using the same search order as the interpreter would, with the call:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par \pard \s3 dictword *{\plain \i\fs20\lang1033 dw};
+\par char *{\plain \i\fs20\lang1033 name};
+\par \pard \s3 
+\par \pard \s3 {\plain \i\fs20\lang1033 dw} = atl_lookup({\plain \i\fs20\lang1033 name});
+\par \pard\plain \qj\sb120 \fs20\lang1033 Since {\scaps atlast} names are matched regardless of whether letters in them are upper or lower case, the {\i name}
+ may contain any combination of upper and lower case letters.  If the word is defined, its dictionary entry is returned.  The {\b\f4 dictword} structure is defined in {\b\f4 atldef.h}.  If the word is not defined, {\b\f4 NULL}
+ is returned.  There may be multiple nested definitions of a word; if this is the case, only the most recent definition (the active definition) is returned.  There is no way, using {\b\f4 atl_lookup} alone, to locate hidden definitions.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Accessing a word's text: {\f4 atl_body}
+\par \pard\plain \qj\sb120 \fs20\lang1033 An {\scaps atlast} word definition consists of several components, including its name and the C-coded method that implements it.  Of most interest to applications that intercommunicate with {\scaps atlast} is the {\i 
+body} of the word.  For a variable or constant, this is the storage that contains the word's value.  To obtain the body address of a dictionary item returned by {\b\f4 atl_lookup} or created by {\b\f4 atl_vardef} (see below), use {\b\f4 atl_body}
+.  The call:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par {\b\f4 dictword *}{\i dw}{\b\f4 ;}
+\par {\b\f4 stackitem *}{\i si}{\b\f4 ;}
+\par 
+\par {\i si}{\b\f4  = atl_body(} {\i dw}{\b\f4 );}
+\par \pard\plain \qj\sb120 \fs20\lang1033 places the body address of dictionary item {\i dw} into variable {\i si}.  If you wish to store a data type into the body of the {\scaps atlast} word other than the default of {\b\f4 stackitem} (defined as {\b\f4 long}
+), cast the pointer to the correct pointer type.  See the {\b\f4 atl_vardef} sample below for an example of a floating point variable being created and initialised using {\b\f4 at}{\b\f4 l_body}.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Defining variables: {\f4 atl_vardef}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Shared variables are a convenient way of intercommunicating between a host application and {\scaps atlast}.  By making the application's state visible to and changeable by the {\scaps atlast}
+ program, the program is given the information it needs and the power to direct the application.  A shared variable is an {\scaps atlast} variable defined by the application, the address of which is known both to {\scaps atlast}
+ (via the dictionary), and to the application (by a pointer returned when the shared variable is created).  To create a shared variable, call:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par {\b\f4 dictword *}{\i var}{\b\f4 ;}
+\par 
+\par {\i var}{\b\f4  = atl_vardef(}{\i name}{\b\f4 , }{\i size}{\b\f4 );}
+\par \pard\plain \qj\sb120 \fs20\lang1033 where {\i name} is a character pointer giving the name of the variable to be created and {\i size} is an integer specifying its size in bytes.  Note that to create a normal {\scaps atlast} integer variable {\i size}
+ should be 4; for a floating point variable, {\i size} should be 8 bytes.  Storage for the variable is reserved on the {\scaps atlast} heap.  If insufficient heap space is available to create the variable {\b\f4 NULL} is returned.  Otherwise,
+ the address of the variable's dictionary entry is returned.  {\b Beware:} the dictionary entry {\i is not} the storage address of the variable's value.  To obtain that address, call {\b\f4 atl_body}, described above.
+\par \pard \qj\sb120 For example, we can create a floating point variable containing a crummy approximation of {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }} with the sequence:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par dictword *pi;
+\par pi = atl_vardef("Pi", sizeof(double)); 
+\par if (pi == NULL) \{
+\par      printf("Can't atl_vardef PI.\\n"); 
+\par \} else \{
+\par      *((double *) atl_body(pi)) = 3.141596235; 
+\par \}
+\par \pard\plain \qj\sb120 \fs20\lang1033 We could then print the value with an {\scaps atlast} program run under that application with:
+\par \pard \qj\sb120 {\b\f4 pi 2@ f. 
+\par }\pard\plain \s4\sb240\keepn \b\fs32\lang1033 Executing words: {\f4 atl_exec}
+\par \pard\plain \qj\sb120 \fs20\lang1033 If you've obtained the dictionary address of an {\scaps atlast} word definition, your application can execute it with the sequence:
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par {\b\f4 dictword *}{\i dw}{\b\f4 ;}
+\par {\b\f4 int }{\i stat}{\b\f4 ;
+\par }
+\par \pard \s2\qj {\i sta}{\b\i\f4 t}{\b\f4  = atl_exec(}{\i dw}{\b\f4 )};
+\par \pard\plain \qj\sb120 \fs20\lang1033 The status codes returned in {\i stat} are identical to those returned by {\b\f4 atl_eval}.  The distinction between {\b\f4 atl_eval} and {\b\f4 atl_exec} is subtle, but important\emdash 
+it can make a big difference in the performance of your application.  If you know the name of an {\scaps atlast} word, you can execute it either by passing a string containing its name to {\b\f4 atl_eval}
+ or by saving its dictionary address in a variable and executing the word directly from the dictionary address with {\b\f4 atl_exec}.  The results of these two operations are identical, but when you pass a string to {\b\f4 atl_eval}, {\scaps atlast}
+ is forced to scan the string, parse its contents into the token denoting the word, look that word up in the dictionary, and only then execute the word.  You can bypass
+ all these nonproductive and time consuming preliminaries if you know the word's dictionary address and use {\b\f4 atl_exec}.
+\par \pard \qj\sb120 Creative use of {\b\f4 atl_lookup} and {\b\f4 atl_exec} provide one of the most powerful ways for {\scaps atlast}
+ to enrich an application.  If you create an application to perform a relatively well-defined task, you can, before entering its main processing loop, inquire with {\b\f4 atl_lookup}
+ whether the user has defined a series of words specified by the application.  If so, their dictionary addresses are saved in pointe
+rs in the application code.  Then, as the application executes, at each step where the user might want to interpose his own processing or replace the application's default processing with his own method, the application merely tests whether the word assoc
+iated with that step has been defined in the {\scaps atlast} program and, if so, runs it with {\b\f4 atl_exec}.  If the default processing that would otherwise occur is made available as an {\scaps atlast} primitive with {\b\f4 atl_primdef}
+ (see below), it is extremely easy for the {\scaps atlast} program to examine the data at the point it has been \ldblquote hooked,\rdblquote 
+ perform any special processing it wishes, or inherit the default processing simply by running the primitive that does it.  If the user has not requested special processing, the cost to the appl
+ication to provide that opportunity is one pointer comparison against {\b\f4 NULL}.  Compared with the benefits of open architecture, this is a small price indeed.
+\par \pard \qj\sb120 You can pass arguments to the definition you're invoking with {\b\f4 atl_exec} either by storing them in shared variables created with {\b\f4 atl_vardef}
+ or, usually the best approach, pushing them on the stack before executing the definition.  See the discussion of {\b\f4 atl_primdef} below for information on access to the stack from C.
+\par \pard\plain \s4\sb240\keepn \b\fs32\lang1033 Defining primitives: {\f4 atl_primdef}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Most of the power of {\scaps atlast}
+ derives from the ease with which C coded primitives can be added to the language.  Once integrated, they may be used in conjunction with the looping, conditional execution, and other facilities already present.  {\scaps atlast} has been delibera
+tely designed to make the addition of primitives simple and safe: nothing like the peril-filled nightmare of adding a function to AutoLISP.  Still, to extend any language you need to learn your way around its memory architecture and control structure.  So
+, listen up, walk through the examples, and before long you'll be adding primitives like a pro.
+\par \pard \qj\sb120 An {\scaps atlast} primitive is a C function.  When the primitive is executed, that function is called and may do whatever it likes.  A primitive can be as simple as one 
+that discards the top item on the stack, or as complex as one that prepares a ray-traced bitmap from a three dimensional geometric model.  Most primitives communicate with one another via the {\i stack}
+.  Some primitives also access variables stored on the {\i heap}.  Finally, a very few primitives manipulate data stored on the {\i return stack}, which {\scaps atlast}
+ uses to track the nesting of execution.  A user-defined primitive will rarely need to access the return stack.  Definitions in {\b\f4 atldef.h} simplify access to each of these areas of memory.  Let's look at them one by one.
+\par \pard\plain \s9\sb240\keepn \b\fs28\lang1033 Accessing the stack
+\par \pard\plain \qj\sb120 \fs20\lang1033 The stack pointer variable is called {\b\f4 stk}, and always points to the next available {\b\f4 long} stack item.  Primitives rarely reference {\b\f4 stk}
+ directly, since it is usually far more convenient to use definitions that hide the complexity of indexing the stack.  The following tools are provided for access to the stack.
+\par \pard\plain \s8\qj\fi-1418\li1418\sb120\tx1441 \fs20\lang1033 {\b\f4 Sl(}{\i n}{\b\f4 )}\tab Before you access any items on the stack, you must check that the stack actually contains at least as many items as you'll be using.  If not, a {\i 
+stack underflow} must be reported.  At the start of your primitive, simply use the statement \ldblquote {\b\f4 Sl(}{\i n}{\b\f4 );}\rdblquote , where {\i n} is the number of stack items you'll be referencing.  If you use the topmost two stack items, {
+\b\f4 S0} and {\b\f4 S1}, you'd use {\b\f4 Sl(2);}.  It's important that you use the definition rather than check the stack limit directly; if you later build your application with stack checking off, the {\b\f4 Sl()}
+ statement will generate no code, automatically configuring  your primitive for maximum speed.
+\par {\b\f4 So(}{\i n}{\b\f4 )}\tab Before you push any new items onto the stack, you must check that the stack will not overflow the area allocated to it when those items are added.  If it would, a {\i stack overflow}
+ must be reported.  At the start of your primitive, simply use the statement \ldblquote {\b\f4 So(}{\i n}{\b\f4 );}\rdblquote , where {\i n} is the number of new stack items you'll be pushing.  If you are adding one new integer item to the stack, use 
+\ldblquote {\b\f4 So(1)};\rdblquote .  It's important that you use the definition rather than check the stack limit directly; if you later build your application with stack checking off, the {\b\f4 So() }
+statement will generate no code, automatically configuring your primitive for maximum speed.
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 S0}\endash  {\b\f4 S5}\tab The definitions {\b\f4 S0}, {\b\f4 S1},{\field\flddirty{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }} {\b\f4 S5} provide direct access to the top 6 integer stack items.  {\b\f4 
+S0} is the top item on the stack, {\b\f4 S1} is the next item, and so on.  These definitions may be used on either the left or right side of an assignment.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 Pop}\tab Used as a statement, \ldblquote {\b\f4 Pop;}\rdblquote , discards the topmost item from the stack.  
+\par {\b\f4 Pop2}\tab Used as a statement, \ldblquote {\b\f4 Pop2;}\rdblquote , discards the topmost two items from the stack.  
+\par \pard\plain \qj\sb120 \fs20\lang1033 {\b\f4 Npop(}{\i n}{\b\f4 )}\tab Discards the top {\i n} items from the stack.  
+\par \pard\plain \s8\qj\fi-1418\li1418\sb120\tx1441 \fs20\lang1033 {\b\f4 Push}\tab Used on the left side of an assignment, stores the value on the right side into the next free stack item and increments the stack pointer.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 Realsize}\tab For primitives that use floating point numbers, {\b\f4 Realsize}
+ gives the number of stack items occupied by one floating point number.  A primitive that expects two floating point arguments on the stack and will leave them there, adding one new floating point result would begin \ldblquote {\b\f4 
+Sl(2 * Realsize); So(Realsize);}\rdblquote .  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 REAL0}\endash {\b\f4 REAL2}\tab These definitions provide read access to the topmost three floating point numbers on the stack.  The stack cells are automatically cast to type {\b\f4 double}.  It is {\i 
+essential} that you access floating point values this way\emdash some computers require that {\b\f4 double}s be aligned on 8 byte boundaries, and the {\b\f4 REAL}{\i n} definitions automatically align the variable if the machine requires it.  
+\par {\b\f4 SREAL0(}{\i f}{\b\f4 )}, {\b\f4 SREAL1(}{\i f}{\b\f4 )}\tab These definitions, used as functions, store their floating point arguments into the topmost ({\b\f4 SREAL0}) and next ({\b\f4 SREAL1}
+) floating point items on the stack.  Because of the possible need to compensate for machine alignment restrictions, the {\b\f4 REAL}{\i n} definitions cannot be used on the left side of an assignment; use these  functions instead.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 Realpop}\tab Pops the topmost floating point value from the stack.  Equivalent to {\b\f4 Npop(Realsize)}.  
+\par {\b\f4 Realpop2}\tab Pops the two topmost floating point values from the stack.  Equivalent to {\b\f4 Npop(2 * Realsize)}.
+\par \pard\plain \qj\sb120 \fs20\lang1033 {\i He said this was easy!}  Please bear with me\emdash 
+all of this is far simpler (and more compact) to use than it is to explain.  If you can't stand it, skip ahead to the sample primitive definitions and see for yourself.  O.K., welcome back.  Probably 95% of all the primitives you'll add to {\scaps atlast}
+ will confine themselves to accessing the stack.  Heap and return stack access is far less frequent (and may indicate poor design).  In any case, if you need to do it, here's how.
+\par \pard\plain \s9\sb240\keepn \b\fs28\lang1033 Accessing the heap
+\par \pard\plain \qj\sb120 \fs20\lang1033 The {\i heap} is a pool of memory used to allocate static objects.  Most heap is allocated by {\scaps atlast} {\i defining words}, such as {\b\f4 VARIABLE}, {\b\f4 CONSTANT}, and the {\b\f4 :}
+ used to define new executable words, themselves stored on the heap.  The ability to create defining words for new data types directly in {\scaps atlast}
+ is one of its most powerful features and reduces the need to manipulate the heap from user primitives.  The heap is accessed through a set of definitions similar to those used for the stack.  The heap pointer itself is named {\b\f4 hptr}
+, but will rarely be referenced explicitly.
+\par \pard\plain \s8\qj\fi-1418\li1418\sb120\tx1441 \fs20\lang1033 {\b\f4 Ho(}{\i n}{\b\f4 )}\tab Before you store any new data on the heap, you must verify that doing so would not cause the heap to grow past its assigned maximum size.  This event is called a 
+{\i heap overflow}, and the {\b\f4 Ho(}{\i n}{\b\f4 )} function checks for it and terminates execution should overflow occur.  The number {\i n} is the amount of heap you propose to allocate, {\i in terms of stack items}
+, each of four bytes.  If you wish to allocate a number expressed in bytes, you must round it up to the next larger multiple of four.  A portable way to do this is to use the expression: {\b\f4 ((}{\i x}{\b\f4 
+ + (sizeof(stackitem) - 1)) / sizeof(stackitem))} where {\i x} is the number of bytes of heap you require.  If you configure stack and heap checking off for maximum performance, {\b\f4 Ho(}{\i n}{\b\f4 )} generates no code.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441  {\b\f4 Hpc(}{\i ptr}{\b\f4 )}\tab 
+Heap storage is normally accessed via pointers passed on the stack.  Since the stack contains many other types of data, accidentally using a non-pointer as a heap address could be catastrophic.  Before using any value as a pointer to the heap, call {
+\b\f4 Hpc(}{\i ptr}{\b\f4 )} where {\i pt}{\i r} is the pointer.  If the pointer is not within the heap, a {\i bad pointer} error will be reported and execution terminated.  If you configure stack and heap checking off,  {\b\f4 Hpc(}{\i ptr}{\b\f4 )}
+ generates no code.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441  {\b\f4 Hstore}\tab Used on the left of an assignment, stores the {\b\f4 long} value on the right side into the next available heap cell and advances the heap allocation pointer.
+\par \pard\plain \s9\sb240\keepn \b\fs28\lang1033 Accessing the return stack
+\par \pard\plain \qj\sb120 \fs20\lang1033 The return stack remembers the point at which one definition invoked another, tracks loop control indices, and stores other it
+ems internal to the evaluator.  Messing with the return stack is generally a very bad idea.  This information is presented not so much to encourage you to use the return stack as for completeness and to document the code within {\b\f4 atlast.c}
+ that maintains it.  The stack pointer variable is called {\b\f4 rstk}, and always points to the next available return stack item.  Return stack items have a type of {\b\f4 **dictword} (got that?), which is also {\b\f4 typedef}ed to {\b\f4 rstackitem}.
+
+\par \pard \qj\sb120 Primitives rarely reference {\b\f4 rstk} directly, since it is usually far more convenient to use definitions that hide the complexity of indexing the return stack.  The following tools provide access to the return stack.
+\par \pard\plain \s8\qj\fi-1418\li1418\sb120\tx1441 \fs20\lang1033 {\b\f4 Rsl(}{\i n}{\b\f4 )}\tab Before you access any items on the return stack, you must check that the return stack actually contains at least as many items as you'll be using.  Otherwise, a 
+{\i return stack underflow} must be reported.  At the start of your primitive, simply use the statement \ldblquote {\b\f4 Rsl(}{\i n}{\b\f4 );}\rdblquote , where {\i n} is the number of return stack items you'll be referencing.  If you 
+use the topmost two items, {\b\f4 R0} and {\b\f4 R1}, you'd use {\b\f4 Rsl(2);}.  It's important that you use the definition rather than check the return stack limit directly; if you later build your application with stack checking off, the {\b\f4 Rsl()}
+ statement will generate no code, automatically configuring your primitive for maximum speed.  
+\par {\b\f4 Rso(}{\i n}{\b\f4 )}\tab Before you push any new items onto the return stack, you must check that the return stack will not overflow the area allocated to it when those items are added.  If it would, a {\i return st}{\i ack overflow}
+ must be reported.  At the start of your primitive, simply use the statement \ldblquote {\b\f4 Rso(}{\i n}{\b\f4 );}\rdblquote , where {\i n}
+ is the number of new return stack items you'll be pushing.  If you are adding one new item to the return stack, use \ldblquote {\b\f4 Rso(1);}\rdblquote 
+.  It's important that you use the definition rather than check the return stack limit directly; if you later build your application with stack checking off, the {\b\f4 Rso()}
+ statement will generate no code, automatically configuring your primitive for maximum speed.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 R0}\endash {\b\f4 R2}\tab The definitions {\b\f4 R0}, {\b\f4 R1}, and {\b\f4 R2} provide direct access to the top three return stack items.  {\b\f4 R0} is the top item on the return stack, {\b\f4 R1}
+ is the next item, and {\b\f4 R2} is the third item.  These definitions may be used on either the left or the right side of an assignment.
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 Rpop}\tab Used as a statement, \ldblquote {\b\f4 Rpop};\rdblquote , discards the topmost item from the return stack.  
+\par \pard \s8\qj\fi-1418\li1418\sb120\tx1441 {\b\f4 Rpush}\tab Used on the left side of an assignment, stores the value on the right side into the next free return stack item and increments the return stack pointer.
+\par \pard\plain \s9\sb240\keepn \b\fs28\lang1033 Coding primitive functions
+\par \pard\plain \qj\sb120 \fs20\lang1033 Each primitive word you define is implemented by a C function declared as \ldblquote {\b\f4 static void}\rdblquote .  The header file {\b\f4 atldef.h} defines \ldblquote {\b\f4 prim}\rdblquote 
+ as this type to more explicitly identify primitive implementing functions.
+\par \pard \qj\sb120 As an example of a simple primitive, let's add the ability to obtain the date and time in Unix format and to extract the hours, minutes, and seconds from the Unix date word.  We'll add two new primitive functions to {\scaps atlast}: {
+\b\f4 TIME}, which leaves the number of seconds since midnight on January 1, 1970 on the top of the stack, and {\b\f4 HHMMSS} which, given the value returned by {\b\f4 TIME}
+, leaves the hours, minutes, and seconds represented by that time in the three top stack locations, with the seconds at the top.
+\par \pard \qj\sb120 Here is the C function that implements the {\b\f4 TIME} primitive word:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par prim ptime() \{
+\par      So(1);
+\par      Push = time(NULL); 
+\par \}
+\par \pard\plain \qj\sb120 \fs20\lang1033 Since we're placing one new word on the stack, we call {\b\f4 So(1)} to check for stack overflow.  That accomplished, we simply use {\b\f4 Push} on the left side of the assignment to store the {\b\f4 long}
+ time word returned by the Unix-compatible {\b\f4 time()} function (which is supported by most non-Unix C libraries, as well).
+\par \pard \qj\sb120 The function for our {\b\f4 HHMMSS} primitive is more complicated, but not much.  It uses the Unix-compatible {\b\f4 localtime()} function which, passed a pointer to a word containing a time in the format returned by {\b\f4 time()}
+, returns a pointer to an internal static structure with fields that give the day, month, year, hour, minute, second, etc. represented by that time.  The primitive definition is:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par prim phhmmss() \{
+\par      struct tm *lt;
+\par 
+\par      Sl(1);
+\par      So(2);
+\par \pard \s3      lt = localtime(&S0);
+\par \pard \s3      S0 = lt->tm_hour;
+\par      Push = lt->tm_min;
+\par      Push = lt->tm_sec; 
+\par \}
+\par \pard\plain \qj\sb120 \fs20\lang1033 This primitive expects one argument (the time word) on the stack, so it begins with {\b\f4 Sl(1)}
+ to verify that it is present.  It will replace that value with the hours and add two new items to the stack for the minutes and seconds, so it next uses {\b\f4 So(2)}
+ to ensure those additions won't cause the stack to overflow.  Now it can get down to business.  It calls {\b\f4 localtime()}, passing the address of the first stack item (the time word), then stores the hours back into that word and uses {\b\f4 Push}
+ twice to add the minutes and seconds.
+\par \pard \qj\sb120 Once the primitive functions are coded, the primitives are actually added to {\scaps atlast} by listing them in a primitive definition table and registering that table with {\scaps atlast} by calling the {\b\f4 atl_primdef}
+ function.  The primitive definition table for our two new primitives is as follows:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par static struct primfcn timep[] = \{
+\par      \{"0TIME",   ptime\},
+\par      \{"0HHMMSS", phhmmss\},
+\par      \{NULL,      (codeptr) 0\} 
+\par \};
+\par \pard\plain \qj\sb120 \fs20\lang1033 The {\b\f4 primfcn} structure is declared in {\b\f4 atldef.h}.  You may list as many primitives in the table as you wish.  The end of the table is marked by an entry with {\b\f4 NULL}
+ instead of a primitive name.  For each primitive you define, make an entry with two components: the first a string with the first character \ldblquote {\b\f4 0}\rdblquote  if the primitive is a normal word and \ldblquote {\b\f4 1}\rdblquote 
+ if it is a compile-time immediate word, the balance of which is the name of the primitive with all letters upper case.  The second component is the name of the function that implements the primitive.  The primitives in the table are defined by calling {
+\b\f4 atl_primdef}, passing the address of the table as follows:
+\par \pard \qj\sb120 {\b\f4 atl_primdef(primt);}
+\par \pard \qj\sb120 (Subtle note for MS-DOS users: to save memory, {\scaps atlast} uses the actual static strings you declare in the primitive table as part of the dictionary entries it creates.  Since the {\scaps atlast}
+ dictionary will contain pointers to these compiled-in strings, you must not place the data for the primitive table in an overlay which might be swapped out when {\scaps atlast}
+ later attempts to search the dictionary.  If your program does not overlay its data segment, you need not worry about this.)
+\par \pard \qj\sb120 You can call {\b\f4 atl_primdef} any time after you've called {\b\f4 atl_init}, and you can call it as many times as you like with different {\b\f4 primfcn} tables.  If a name in a {\b\f4 primfcn} table duplicates the name of a built-in {
+\scaps atlast} primitive or a primitive defined by an previous call on {\b\f4 atl_primdef}, the earlier definition will be hidden and inaccessible.
+\par \pard \qj\sb120 With these new primitives installed, we can now try them out interactively from {\scaps atlast}.
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par % atlast 
+\par -> time .  
+\par 634539503 -> time .  
+\par 634539505 -> time .  
+\par 634539508 -> time .s 
+\par Stack: 634539512  -> hhmmss 
+\par -> .s 
+\par Stack: 20 58 32  -> clear time hhmmss .s 
+\par Stack: 20 58 44  -> clear 
+\par -> time hhmmss .s 
+\par Stack: 20 58 52  -> ^D 
+\par %
+\par \pard\plain \qj\sb120 \fs20\lang1033 Everything seems to be behaving as we intended.  Our new primitives work!
+\par \pard \qj\sb120 Finally, let's look at a more complicated primitive, one involving floating point.  Turning again to the Leibniz series for {\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }}
+, here is the C language definition of a primitive function to evaluate it.  The function is compatible with the one we previously implemented in {\scaps atlast}: it expects the number of terms on the top of the stack and returns the approximation of 
+{\field{\*\fldinst SYMBOL 112 \\f "Symbol"}{\fldrslt }} as a floating point value in the two top stack items.
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par prim pleibniz() \{
+\par      long nterms;
+\par      double sum = 0.0,
+\par             numer = 1.0,
+\par             denom = 1.0;
+\par      Sl(1);
+\par      nterms = S0;
+\par      Pop;
+\par      So(Realsize);
+\par      Push = 0;
+\par      Push = 0;
+\par      while (nterms\endash - > 0) \{
+\par          sum += numer / denom;
+\par          numer = -numer;
+\par          denom += 2.0;
+\par      \}
+\par      SREAL0(sum * 4.0); 
+\par \}
+\par \pard\plain \qj\sb120 \fs20\lang1033 This function begins by verifying with {\b\f4 Sl(1)} that its term count argument is present on the stack.  It loads that argument, referenced as {\b\f4 S0}, and saves it in the loop count, {\b\f4 nterms}
+.  The iteration count is then discarded from the stack with {\b\f4 Pop}.  Next, {\b\f4 So(Realsize)} verifies that the stack will not overflow when the real result is pushed (recall that {\b\f4 Realsize}
+ is the number of stack items per floating point result\emdash this is always two, but using the definition makes for more readable code).  We then immediately count on {\b\f4 Realsize} being two as we use two {\b\f4 Push}
+ operations to allocate the stack space for the result and clear it to zero.  That done, the function falls into the loop that sums the requested number of terms of the series.  Finally, {\b\f4 SREAL0()} is used to store the resu
+lt into the top floating point value on the stack: the one we created with the two {\b\f4 Push}es.
+\par \pard \qj\sb120 This primitive is declared and registered with {\scaps atlast} with the sequence:
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par static struct primfcn pip[] = \{
+\par      \{"0LEIBNIZ", pleibniz\},
+\par      \{NULL, (codeptr) 0\} 
+\par \}; 
+\par atl_primdef(pip);
+\par \pard\plain \qj\sb120 \fs20\lang1033 With a C coded primitive implementation, we can explore the outer reaches of this awful series.  For example, here it's used to print the error after the first half million terms.
+\par \pard\plain \s3 \b\f4\fs20\lang1033 
+\par % atlast
+\par -> 2variable pi 
+\par -> 1.0 atan 4.0 f* pi 2!  
+\par -> pi 2@ f. cr 
+\par 3.14159 
+\par -> 500000 leibniz pi 2@ f- f. cr 
+\par -2e-06 
+\par -> ^D 
+\par %
+\par \pard\plain \qj\sb120 \fs20\lang1033 As you can see from the brevity and straightforwardness of these sample primitives, there's nothing complicated or difficult about adding a primitive to {\scaps atlast}
+.  The overhead in executing a primitive function from {\scaps atlast} rather than calling it from a C program is a matter of a few instructions.  If you need guidance in implementing primitives that interact with {\scaps atlast}
+ in more intricate ways, the best source of information is the source code of {\b\f4 atlast.c}
+; find a standard primitive with arguments and results similar to the one you're planning to add, and look up its implementing function.  That should abate any confusion about the fine points of stack and heap manipulation.
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Package configuration
+\par \pard\plain \qj\sb120 \fs20\lang1033 In addition to the global configuration parameters described on page {\field{\*\fldinst pageref gconf}{\fldrslt 9}}, you can choose precisely which components of {\scaps atlast}
+ are included when building a version for your application by creating a custom configuration file named {\b\f4 custom.h}, then compiling {\b\f4 atlast.c} with the {\b\f4 -DCUSTOM} compiler flag.  A custom configuration file has the following format:
+
+\par \pard\plain \s2\qj \fs20\lang1033 
+\par \pard \s2\qj {\b\f4 #define INDIVIDUALLY
+\par }\pard \s2\qj {\b\f4 #define }{\i Package}{\fs16\dn6 1}
+\par {\b\f4 #define }{\i Package}{\fs16\dn6 2}
+\par \pard \s2\qj\li1134\tx1560 {\fs12 .
+\par }{\fs12 .
+\par }{\fs12 .
+\par }\pard \s2\qj {\b\f4 #define }{\i Package}{\fs16\dn6 n
+\par }\pard\plain \qj\sb120 \fs20\lang1033 The {\i Package}{\fs16\dn6 n} definitions select which {\scaps atlast} subpackages you wish included in your application.  The individual subpackages are described in the following paragraphs.  The {\b\f4 WORDSUSED}
+ and {\b\f4 WORDSUNUSED} primitives, available as part of the {\b\f4 WORDSUSED} package, let you determine which primitives are used within an {\scaps atlast} program and, consequently, which packages are required to execute it.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 ARRAY}{\plain \b\lang1033  package.}  Provides declaration of {\i n} dimensional arrays of arbitrary data types and runtime subscript calculation for such arrays.  Primitives: {\b\f4 ARRAY}.
+
+\par {\plain \b\lang1033 The }{\plain \b\f4\lang1033 BREAK}{\plain \b\lang1033  package.}  Enables asynchronous break processing via the {\b\f4 atl_break}
+ function.  Disabling this package saves an insignificant amount of memory but increases execution speed by about 10%.  Primitives: none.
+\par {\plain \b\lang1033 The }{\plain \b\f4\lang1033 COMPILERW}{\plain \b\lang1033  package.}  Enables primitives used to define new compiler words.  Primitives: {\b\f4 [COMPILE]}, {\b\f4 LITERAL}, {\b\f4 COMPILE}, {\b\f4 <MARK}, {\b\f4 <RESOLVE}, {\b\f4 >MARK
+}, {\b\f4 >RESOLVE}.
+\par {\plain \b\lang1033 The }{\plain \b\f4\lang1033 CONIO}{\plain \b\lang1033  package.}  Enables primitives that display interactive output.  These primitives may be disabled in applications that provide no interaction with the user.  Primitives: {\b\f4 .}, 
+{\b\f4 ?}, {\b\f4 CR}, {\b\f4 .S}, {\b\f4 ."}, {\b\f4 .(}, {\b\f4 TYPE},  {\b\f4 WORDS}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 DEFFIELDS}{\plain \b\lang1033  package.}
+  Enables low level primitives used to manipulate dictionary items.  These primitives are rarely used except in very ambitious language extensions coded in {\scaps atlast}.  Primitives: {\b\f4 FIND}, {\b\f4 >NAME}, {\b\f4 >LINK}, {\b\f4 BODY>}, {\b\f4 
+NAME>}, {\b\f4 LINK>}, {\b\f4 N>LINK}, {\b\f4 L>NAME}, {\b\f4 NAME>S!}, {\b\f4 S>NAME!}.
+\par {\plain \b\lang1033 The }{\plain \b\f4\lang1033 DOUBLE}{\plain \b\lang1033  package.}
+  Enables double word operations.  These operations can be used with any stack data, but are heavily used in floating point code, since floating point numbers occupy pairs of stack items.  Primitives: {\b\f4 2DUP}, {\b\f4 2DROP}, {\b\f4 2SWAP}, {\b\f4 
+2OVER}, {\b\f4 2ROT}, {\b\f4 2VARIABLE}, {\b\f4 2CONSTANT}, {\b\f4 2!}, {\b\f4 2@}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 FILEIO}{\plain \b\lang1033  package.}  Enables the C language-like file primitives.  If your application does not require access to files, this package may be disabled.  Primitives: {\b\f4 
+FILE}, {\b\f4 FOPEN}, {\b\f4 FCLOSE}, {\b\f4 FDELETE}, {\b\f4 FGETS}, {\b\f4 FPUTS}, {\b\f4 FREAD}, {\b\f4 FWRITE}, {\b\f4 FGETC}, {\b\f4 FPUTC}, {\b\f4 FTELL}, {\b\f4 FSEEK}, {\b\f4 FLOAD}.  In addition, {\b\f4 FILE} variables {\b\f4 STDIN}, {\b\f4 
+STDOUT}, and {\b\f4 STDERR} are defined, automatically bound to the Unix I/O streams with the same names.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 MATH}{\plain \b\lang1033  package.}  Enables the mathematical functions.  {\b\f4 MATH} can be enabled only if {\b\f4 REAL} is also enabled.  Primitives: {\b\f4 ACOS}, {\b\f4 ASIN}, {\b\f4 
+ATAN}, {\b\f4 ATAN2}, {\b\f4 COS}, {\b\f4 EXP}, {\b\f4 LOG}, {\b\f4 POW}, {\b\f4 SIN}, {\b\f4 SQRT}, {\b\f4 TAN}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 MEMMESSAGE}{\plain \b\lang1033  package.}  Controls whether messages are printed when runtime errors (such as s
+tack overflow and underflow, bad pointers, etc.) occur.  Disabling these messages doesn't save time or significant memory: it's intended for deeply embedded applications where returning the error status to the caller of {\b\f4 atl_eval} or {\b\f4 atl_exec
+} is all the error notification that is appropriate.  Primitives: none.
+\par {\plain \b\lang1033 {\*\bkmkstart prologue}The }{\plain \b\f4\lang1033 PROLOGUE}{\plain \b\lang1033  package.}{\*\bkmkend prologue}
+  The amount of memory allocated to the stack, return stack, heap, and temporary string buffers can be controlled by setting the external variables governing those areas as described on page {\field{\*\fldinst pageref memall}{\fldrslt 10}}
+.  You can allow the {\scaps atlast} program text to override the default settings you make by enabling the {\b\f4 PROLOGUE} package.  If this package is enabled, special statements of the form:
+\par \pard \qj\sb120 {\b\f4 \\ *}{\i area} {\i size}
+\par \pard \qj\sb120 are recognised by the evaluator when encountered before the first line containing executable {\scaps atlast} text.  To permit processing of the prologue, {\i do not} explicitly call {\b\f4 atl_init}; it will be called automatically by {
+\b\f4 atl_eval} after the prologue is processed.  The following {\i area} specifications are recognised in the prologue:
+\par \pard\plain \s2\qj \fs20\lang1033 {\b\f4 
+\par }\pard \s2\qj\li567\tx2127 {\b\f4 STACK}\tab Specifies the stack size in terms of {\b\f4 long} stack items.  
+\par {\b\f4 RSTACK}\tab Specifies the return stack size in items.  
+\par {\b\f4 HEAP}\tab Specifies the heap size as a number of {\b\f4 long} stack items.
+\par {\b\f4 TEMPSTRL}\tab Specifies the length of each temporary string buffer in characters.
+\par {\b\f4 TEMPSTRN}\tab Specifies the number of temporary string buffers.
+\par \pard\plain \qj\sb120 \fs20\lang1033 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 REAL}{\plain \b\lang1033  package.}  Enables floating point operations.  If you enable the {\b\f4 REAL} package, you should also enable the {\b\f4 DOUBLE}
+ package; without it you won't be able to accomplish much.  Primitives: {\b\f4 (FLIT)}, {\b\f4 F+}, {\b\f4 F-}, {\b\f4 F*}, {\b\f4 F/}, {\b\f4 FMIN}, {\b\f4 FMAX}, {\b\f4 FNEGATE}, {\b\f4 FABS}, {\b\f4 F=}, {\b\f4 F<>}, {\b\f4 F>}, {\b\f4 F<}, {\b\f4 F>=}
+, {\b\f4 F<=}, {\b\f4 F.}, {\b\f4 FLOAT}, {\b\f4 FIX}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 SHORTCUTA}{\plain \b\lang1033  package.} Enables shortcut integer arithmetic operations.  Primitives: {\b\f4 1+}, {\b\f4 2+}, {\b\f4 1-}, {\b\f4 2-}, {\b\f4 2*}, {\b\f4 2/}.
+\par {\plain \b\lang1033 The }{\plain \b\f4\lang1033 SHORTCUTC}{\plain \b\lang1033  package.} Enables shortcut integer comparison operations.  Primitives: {\b\f4 0=}, {\b\f4 0<>}, {\b\f4 0<}, {\b\f4 0>}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 STRING}{\plain \b\lang1033  package.} Enables string operations.  Primitives: {\b\f4 (STRLIT)}, {\b\f4 STRING}, {\b\f4 STRCPY}, {\b\f4 S!}, {\b\f4 STRCAT}, {\b\f4 S+}, {\b\f4 STRLEN}, {\b\f4 
+STRCMP}, {\b\f4 STRCHAR}, {\b\f4 SUBSTR}, {\b\f4 COMPARE}, {\b\f4 STRFORM}, {\b\f4 STRINT}, {\b\f4 STRREAL}.  If the {\b\f4 RE}{\b\f4 AL} package is also enabled, the {\b\f4 FSTRFORM} primitive is available, as well.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 SYSTEM}{\plain \b\lang1033  package.}
+ Enables submission of commands in strings to the operating system for execution.  This package may be enabled only if the implementation of C used to build {\scaps atlast} provides the {\b\f4 system()} function.  Primitives: {\b\f4 SYSTEM}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 TRACE}{\plain \b\lang1033  package.} Enables runtime word execution trace.  Primitives: {\b\f4 TRACE}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 {\*\bkmkstart wback}W{\*\bkmkend wback}ALKBACK}{\plain \b\lang1033  package.} Enables the walkback through nested invocation of words when an error is detected at runtime.  Primitives: {
+\b\f4 WALKBACK}.
+\par \pard \qj\sb120 {\plain \b\lang1033 The }{\plain \b\f4\lang1033 WORDSUSED}{\plain \b\lang1033  package.}
+ Enables the collection of information on which words are used and not used by a program, and the primitives that list words used and words not used.  This facility allows you to determine, in the development phase of an {\scaps atlast}
+ application, which packages are needed and which can be safely dispensed with.  Primitives: {\b\f4 WORDSUSED}, {\b\f4 WORDSUNUSED}.
+\par \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Benchmarks
+\par \pard\plain \qj\sb120 \fs20\lang1033 To give a rough idea of the kind of performance you can expect from {\scaps atlast} when it is pressed into service for compute-in
+tensive tasks, I tested it against C and AutoLISP with two benchmarks, both involving the computation of square roots.
+\par \pard \qj\sb120 The first benchmark, {\b\f4 CSQRT}, calculates the square root of 2 with the iterative Newton-Raphson algorithm used by AutoCAD's {\b\f4 HMATH.C} module, also used in the AutoLISP sample program {\b\f4 SQR.LSP}
+.  This benchmark is representative of extremely compute-bound code which represents misuse of a macro language\emdash any such computation should normally be moved into a primitive written in C.  Still, it's interesting to know what the worst case is.
+
+\par \pard \qj\sb120 The second benchmark, {\b\f4 SSQRT}, is identical to {\b\f4 CSQRT}, except that the system math library's {\b\f4 sqrt()}
+ function is called instead of one coded in the language under test.  Since all three languages are calling the same underlying system function, this test demonstrates relative performance in an environment still more compute-bound than a typical macro la
+nguage application, but one where the language overhead is less than 100%.  All of these benchmarks were run on a Sun 3/260 under SunOS 4.0.3, and listings of the benchmark programs are given at the end of this paper.  The {\scaps atlast}
+ timings were made on a version of {\scaps atlast} compiled with the \ldblquote {\b\f4 -O4 -f68881}\rdblquote  flags, and stack and heap checking disabled in the {\scaps atlast} configuration.  The C programs were also compiled with \ldblquote {\b\f4 
+-O4 -f68881}\rdblquote  flags, while the AutoLISP tests were run on a {\b\f4 NONPRODUCTION} version of {\b\f4 Z.0.65} in which AutoLISP was built with \ldblquote {\b\f4 -O -f68881}\rdblquote 
+.  All timings in the following table have been normalised so that the native C language times are 1.
+\par \trowd \trgaph108\trleft1452 \cellx2553\cellx3403\cellx4537\cellx5671\pard \sb120\intbl {\b \cell }\pard \qc\sb120\intbl {\b C\cell }\pard \qc\sb120\intbl {\b ATLAST\cell }\pard \qc\sb120\intbl {\b AutoLISP \cell }\pard \intbl {\b \row }\trowd 
+\trgaph108\trleft1452 \cellx2553\cellx3403\cellx4537\cellx5671\pard\plain \s2\qj\intbl \fs20\lang1033 {\b\f4 CSQRT\cell }\pard \s2\qc\intbl 1.00\cell \pard \s2\qc\intbl 7.41\cell \pard \s2\qc\intbl 67.08 \cell \pard\plain \intbl \fs20\lang1033 \row 
+\trowd \trgaph108\trleft1452 \cellx2553\cellx3403\cellx4537\cellx5671\pard\plain \s2\qj\intbl \fs20\lang1033 {\b\f4 SSQRT\cell }\pard \s2\qc\intbl 1.00\cell \pard \s2\qc\intbl 1.00\cell \pard \s2\qc\intbl 1.52  \cell \pard\plain \intbl \fs20\lang1033 
+\row \pard\plain \s6\qj\sb120\keepn \fs36\lang1033 Summary and Conclusions
+\par \pard\plain \qj\sb120 \fs20\lang1033 Everything should be programmable.  {\i Everything!}  I have come to the conclusion that to write almost any program in a closed manner is a mistake that invites the expenditure of uncounted hours \ldblquote enhancing
+\rdblquote  it over its life cycle.  Further tweaks, \ldblquote features,\rdblquote  and \ldblquote fixes\rdblquote  often result in a product so massive and incomprehensible that it becomes unlearnable, unmaintainable, and eventually unusable.
+\par \pard \qj\sb120 
+Far better to invest the effort up front to create a product flexible enough to be adapted at will, by its users, to their immediate needs.  If the product is programmable in a portable, open form, user extensions can be exchanged, compared, reviewed by t
+he product developer, and eventually incorporated into the mainstream of the product.
+\par \pard \qj\sb120 It is far, far better to have thousands of creative users expanding the scope of one's product in ways the original developers didn't anticipate\emdash in fact, wor
+king for the vendor without pay, than it is to have thousands of frustrated users writing up wish list requests that the vendor can comply with only by hiring people and paying them to try to accommodate the perceived needs of the users.  Open architectur
+e and programmability not only benefits the user, not only makes a product better in the technical and marketing sense, but confers a direct economic advantage upon the vendor of such a product\emdash 
+one mirrored in a commensurate disadvantage to the vendor of a closed product.
+\par \pard \qj\sb120 The chief argument against programmability has been the extra investment needed to create open products.  {\scaps atlast}
+ provides a way of building open products in the same, or less, time than it takes to construct closed ones.  Just as no C programmer in his right mind would sit down and write his own buffered file I/O package when a perfectly fine one was sitting in the
+ library, why re-invent a macro language or other parameterisation and programming facility when there's one just sitting there t
+hat's as fast as native C code for all but the most absurd misapplications, takes less than 51K with every gew-gaw and optional feature at its command enabled all at once, is portable to any machine that supports C by simply recompiling a single file, and
+ can be integrated into a typical application at a basic level in less than 15 minutes?
+\par \pard \qj\sb120 Am I proposing that every application suddenly look like FORTH?  Of course not; no more than output from PostScript printers looks like PostScript, or applications that run on 80386 processors resemble 80386 assembly language.  {\scaps 
+atlast} is an intermediate language, seen only by those engaged in implementing and extending the product.  Even then, {\scaps atlast}
+ is a chameleon which, with properly defined words, can look like almost anything you like, even at the primitive level of the interpreter.
+\par \pard \qj\sb120 Again and again, I have been faced with design situations where I knew that I really needed programmability, but didn't have the time, the memory, or the fortitude to face the problem squar
+ely and solve it the right way.  Instead, I ended up creating a kludge that continued to burden me through time.  This is just a higher level manifestation of the nightmares perpetrated by old-time programmers who didn't have access to a proper dynamic me
+mory allocator or linked list package.  Just because programmability is the magic smoke of computing doesn't mean we should be spooked by the ghost in the machine or hesitant to confer its power upon our customers.
+\par \pard \qj\sb120 Don't think of {\scaps atlast} as FORTH.  Don't think of it as a language at all.  The best way to think of {\scaps atlast} is as a library routine that gives you {\i programmability}
+, in the same sense other libraries provide file access, window management, or graphics facilities.  The whole concept of \ldblquote programmability in a can\rdblquote  is odd\emdash 
+it took me two years to really got my end effector around it and crush it into submission.  Think about it; play with it; and you may discover a better way to build applications.
+\par \pard \qj\sb120 Open is better.  {\scaps atlast} lets you build open programs in less time than you used to spend writing closed ones.  Programs that inherit their open architecture from {\scaps atlast}
+ will share, across the entire product line and among all hardware platforms that support it, a common, clean, and efficient means of user extensibility.  The potential benefits of this are immense.
+\par \pard\plain \s2\qr \fs20\lang1033 
+\par {\i John Walker
+\par }{\i Muir Beach, California
+\par }{\i January 22\endash February 11, 1990
+\par }\pard\plain \qc\sb120 \fs20\lang1033 {\i \page }{\b\scaps\fs32 atlast}{\b\fs32  Primitives: Alphabetical Reference
+\par }\trowd \trgaph108\trleft-108 \cellx1560\cellx2694\cellx3119\cellx3839\cellx5473\cellx9017\cellx10576\pard \qj\sb120\intbl {\b\f4 +\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell 
+\pard \sb120\intbl n3\cell \pard \sb120\intbl n3 = n1 + n2\cell \pard \qj\sb120\intbl Adds {\i n1} and {\i n2} and leaves sum on stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \trowd \trgaph108\trleft-108 \cellx1560\cellx2694\cellx3119
+\cellx3839\cellx5473\cellx9017\cellx10576\pard \qj\sb120\intbl {\b\f4 -\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl n3 = n1 
+{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }} n2\cell \pard \qj\sb120\intbl Subtracts {\i n2} from {\i n1} and leaves difference on stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 *\cell }\pard 
+\qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl n3 = n1 {\field{\*\fldinst SYMBOL 180 \\f "Symbol"}{\fldrslt }} n2\cell \pard \qj\sb120\intbl 
+Multiplies {\i n1} and {\i n2} and leaves product on stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 /\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl n3 = n1 {\field{\*\fldinst SYMBOL 184 \\f "Symbol"}{\fldrslt }} n2\cell \pard \qj\sb120\intbl Divides {\i n1} by {\i n2} and leaves quotient on stack.\cell \pard \qj\sb120\intbl {\b\f4 
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ' }{\i word}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl caddr\cell \pard \sb120\intbl 
+Obtain compilation address\cell \pard \qj\sb120\intbl Places the compilation address of the following word on the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ,\cell }\pard \qr\sb120\intbl n\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Store in heap\cell \pard \qj\sb120\intbl Reserves four bytes of heap space, initialising it to {\i n}.\cell \pard \qj\sb120\intbl {
+\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 .\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print top of stack\cell \pard 
+\qj\sb120\intbl Prints the number on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 .( }{\i str}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print constant string\cell \pard \qj\sb120\intbl Immediately prints the string that follows in the input stream.\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 .S\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print stack\cell \pard \qj\sb120\intbl 
+Prints entire contents of stack.\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ." }{\i str}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print immediate string\cell \pard \qj\sb120\intbl Prints the string literal that follows in line.\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 
+: }{\i w}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Begin definition\cell \pard \qj\sb120\intbl 
+Begins compilation of a word named {\i w}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ;\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell 
+\pard \sb120\intbl \cell \pard \sb120\intbl End definition\cell \pard \qj\sb120\intbl Ends compilation of word.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 <\cell }\pard \qr\sb120\intbl n1 n2\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Less than\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1}<{\i n2}
+, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 <=\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag
+\cell \pard \sb120\intbl Less than or equal\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1}{\field{\*\fldinst SYMBOL 163 \\f "Symbol"}{\fldrslt }}{\i n2}, 0 otherwise.\cell \pard \qj\sb120\intbl {
+\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 <>\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Not equal\cell \pard 
+\qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1}{\field{\*\fldinst SYMBOL 185 \\f "Symbol"}{\fldrslt }}{\i n2}, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 
+=\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Equal\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"
+}{\fldrslt }}1 if {\i n1}={\i n2}, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}
+\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Greater\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1}>{\i n2}, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 >=\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Greater than or equal\cell \pard \qj\sb120\intbl Returns 
+{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1}{\field{\*\fldinst SYMBOL 179 \\f "Symbol"}{\fldrslt }}{\i n2}, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ?\cell }\pard 
+\qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print indirect\cell \pard \qj\sb120\intbl Prints the value at the address at the top of the stack.
+\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 !\cell }\pard \qr\sb120\intbl n addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard 
+\sb120\intbl Store into address\cell \pard \qj\sb120\intbl Stores the value {\i n} into the address {\i addr}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 +!\cell }\pard \qr\sb120\intbl n addr\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Add indirect\cell \pard \qj\sb120\intbl Adds {\i n} to the word at address {\i addr}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 @\cell }\pard \qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Load\cell \pard \qj\sb120\intbl 
+Loads the value at {\i addr} and leaves it at the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 [\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\
+f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Set interpretive state\cell \pard \qj\sb120\intbl Within a compilation, returns to the interpretive state.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 ['] }{\i word}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl caddr\cell \pard \sb120\intbl Push next word\cell \pard \qj\sb120\intbl 
+Places the compile address of the following word in a definition onto the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ]\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl End interpretive state\cell \pard \qj\sb120\intbl Restore compile state after temporary interpretive state.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row 
+\pard \qj\sb120\intbl {\b\f4 0<\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Less than zero\cell \pard \qj\sb120\intbl Returns 
+{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1} less than zero, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTC\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 0<>\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Nonzero\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1} is nonzero, 0 otherwise.\cell \pard 
+\qj\sb120\intbl {\b\f4 SHORTCUTC\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 0=\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard 
+\sb120\intbl Equal to zero\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i n1} is zero, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTC\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 0>
+\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Greater than zero\cell \pard \qj\sb120\intbl Returns {\field{\*\fldinst SYMBOL 45 \\
+f "Symbol"}{\fldrslt }}1 if {\i n1} greater than zero, 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTC\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 1+\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl Add one\cell \pard \qj\sb120\intbl Adds one to top of stack.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTA\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 1-\cell 
+}\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl Subtract one\cell \pard \qj\sb120\intbl Subtracts one from top of stack.\cell \pard 
+\qj\sb120\intbl {\b\f4 SHORTCUTA\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2+\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl 
+Add two\cell \pard \qj\sb120\intbl Adds two to top of stack.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTA\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2-\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\
+f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl Subtract two\cell \pard \qj\sb120\intbl Subtracts two from top of stack.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTA\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2*\cell 
+}\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl Times two\cell \pard \qj\sb120\intbl Multiplies the top of stack by two.\cell \pard 
+\qj\sb120\intbl {\b\f4 SHORTCUTA\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2/\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl 
+Divide by two\cell \pard \qj\sb120\intbl Divides top of stack by two.\cell \pard \qj\sb120\intbl {\b\f4 SHORTCUTA\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2!\cell }\pard \qr\sb120\intbl n1 n2 addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Store two words\cell \pard \qj\sb120\intbl Stores the two words {\i n1} and n2 at addresses {\i addr} and {\i ad}{\i dr}+4.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2@\cell }\pard \qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n1 n2\cell \pard \sb120\intbl Load two words\cell \pard 
+\qj\sb120\intbl Places the two words starting at {\i addr} on the top of the stack\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2CONSTANT }{\i x}{\b\f4 \cell }\pard \qr\sb120\intbl n1 n2\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Double word constant\cell \pard \qj\sb120\intbl Declares a double word constant {\i x}.  When {\i x} is executed, {\i n1} and {\i n2}
+ are placed on the stack.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2DROP\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard 
+\sb120\intbl \cell \pard \sb120\intbl Double drop\cell \pard \qj\sb120\intbl Discards the two top items from the stack.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2DUP\cell }\pard \qr\sb120\intbl n1 n2
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n1 n2 n1 n2\cell \pard \sb120\intbl Duplicate two\cell \pard \qj\sb120\intbl Duplicates the top two items on the stack.\cell \pard \qj\sb120\intbl 
+{\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2OVER\cell }\pard \qr\sb120\intbl n1 n2 n3 n4\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n1 n2 n3 n4 n1 n2\cell \pard 
+\sb120\intbl Double over\cell \pard \qj\sb120\intbl Copies the second pair of items on the stack to the top of stack.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2ROT\cell }\pard \qr\sb120\intbl 
+n1 n2 n3 n4 n5 n6\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3 n4 n5 n6 n1 n2\cell \pard \sb120\intbl Double rotate\cell \pard \qj\sb120\intbl 
+Rotates the third pair on the stack to the top, moving down the first and second pairs.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 2SWAP\cell }\pard \qr\sb120\intbl n1 n2 n3 n4\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3 n4 n1 n2\cell \pard \sb120\intbl Double swap\cell \pard \qj\sb120\intbl Swaps the first and second pairs on the stack.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 2VAR}{\b\f4 IABLE }{\i x}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Double variable
+\cell \pard \qj\sb120\intbl Creates a two cell (8 byte) variable named {\i x}.  When {\i x} is executed, the address of the 8 byte area is placed on the stack.\cell \pard \qj\sb120\intbl {\b\f4 DOUBLE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 
+ABORT\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Abort\cell \pard \qj\sb120\intbl Clears the stack and performs a {\b\f4 QUIT}.\cell 
+\pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ABORT" }{\i str}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard 
+\sb120\intbl Abort with message\cell \pard \qj\sb120\intbl Prints the string literal that follows in line, then aborts, clearing all execution state to return to the interpreter.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 ABS\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl n2=|n1|\cell \pard \qj\sb120\intbl R
+eplaces top of stack with its absolute value.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ACOS\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}
+\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2=arccos f1\cell \pard \qj\sb120\intbl Replaces floating point top of stack with its arc cosine.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 AGAIN\cell 
+}\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Indefinite loop\cell \pard \qj\sb120\intbl 
+Marks the end of an indefinite loop opened by the matching {\b\f4 BEGIN}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ALLOT\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 
+\\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Allocate heap\cell \pard \qj\sb120\intbl Allocates {\i n} bytes of heap space.  The space allocated is rounded to the next higher multiple of 4.\cell \pard \qj\sb120\intbl {\b\f4 
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 AND\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Bitwise {\scaps and}\cell 
+\pard \qj\sb120\intbl Stores the bitwise {\scaps and} of {\i n1} and n2 on the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ARRAY }{\i x}{\b\f4 \cell }\pard \qr\sb120\intbl s{\fs16\dn6 1} s{\fs16\dn6 2} 
+{\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }} s{\fs16\dn6 n} n esize\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Declare array\cell \pard \qj\sb120\intbl 
+Declares an array {\i x} of elements of {\i esize} bytes each with {\i n} subscripts, each ranging from 0 to {\i s}{\fs16\dn6 n}{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1{\fs16\dn6 .}\cell \pard \qj\sb120\intbl {\b\f4 ARRAY\cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 ASIN\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2=arcsin f1\cell \pard \qj\sb120\intbl 
+Replaces floating point top of stack with its arc sine.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ATAN\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2=arctan f1\cell \pard \qj\sb120\intbl Replaces floating point top of stack with its arc tangent.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {
+\b\f4 ATAN2\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl f3=arctan f1/{\b  }f2\cell \pard \qj\sb120\intbl 
+Replaces the two floating point numbers on the top of the stack with the arc tangent of their quotient, properly handling zero denominators.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 BEGIN\cell }\pard 
+\qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Begin loop\cell \pard \qj\sb120\intbl 
+Begins an indefinite loop.  The end of the loop is marked by the matching {\b\f4 AGAIN}, {\b\f4 REPEAT}, or {\b\f4 UNTIL}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 BODY>\cell }\pard \qr\sb120\intbl pfa\cell 
+\pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl cfa\cell \pard \sb120\intbl Body to word\cell \pard \qj\sb120\intbl Given body address of word, return the compile address of the word.\cell \pard 
+\qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >BODY\cell }\pard \qr\sb120\intbl cfa\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl pfa\cell \pard 
+\sb120\intbl Body address\cell \pard \qj\sb120\intbl Given the compile address of a word, return its body (parameter) address.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 BRANCH\cell }\pard \qr\sb120\intbl 
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Branch\cell \pard \qj\sb120\intbl Jump to the address that follows in line.\cell \pard \qj\sb120\intbl {\b\f4 \cell 
+}\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ?BRANCH\cell }\pard \qr\sb120\intbl flag\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Conditional branch\cell \pard 
+\qj\sb120\intbl If the top of stack is zero, jump to the address which follows in line.  Otherwise skip the address and continue execution.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 C!\cell }\pard 
+\qr\sb120\intbl n addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Store byte\cell \pard \qj\sb120\intbl The 8 bit value {\i n} is stored in the byte at address {\i 
+addr}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 C@\cell }\pard \qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard 
+\sb120\intbl Load byte\cell \pard \qj\sb120\intbl The byte at address {\i addr} is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 C,\cell }\pard \qr\sb120\intbl n\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Compile byte\cell \pard \qj\sb120\intbl The 8 bit value {\i n}
+ is stored in the next free byte of the heap and the heap pointer is incremented by one.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 C=\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Align heap\cell \pard \qj\sb120\intbl The heap allocation pointer is adjusted to the next four byte boundary.  This must be done following a sequence of {\b\f4 C,}
+ operations.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 CLEAR\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard 
+\sb120\intbl Clear stack\cell \pard \qj\sb120\intbl All items on the stack are discarded.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 COMPARE\cell }\pard \qr\sb120\intbl s1 s2\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Compare strings\cell \pard \qj\sb120\intbl The two strings whose addresses are given by {\i s1} and {\i s2} are compared.  If {\i s1} is less than {
+\i s2}, {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 is returned; if {\i s1} is greater than {\i s2}, 1 is returned.  If {\i s1} and {\i s2} are equal, 0 is returned.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 COMPILE }{\i w}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Compile word\cell \pard \qj\sb120\intbl 
+Adds the compile address of the word that follows in line to the definition currently being compiled.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW}{\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 [COMPILE] }{\i word}{\b\f4 \cell }\pard 
+\qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Compile immediate word\cell \pard \qj\sb120\intbl Compiles the address of {\i word}, even if {\i word}
+ is marked {\b\f4 IMMEDIATE}.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 CONSTANT }{\i x}{\b\f4 \cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Declare constant\cell \pard \qj\sb120\intbl Declares a constant named {\i x}.  When {\i x} is executed, the value {\i n} will be left on the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell 
+}\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 COS\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl Cosine\cell \pard \qj\sb120\intbl 
+The floating point value on the top of the stack is replaced by its cosine.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 CR\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Carriage return\cell \pard \qj\sb120\intbl The standard output stream is advanced to the first character of the next line.\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell 
+}\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 CREATE\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Create object\cell \pard 
+\qj\sb120\intbl 
+Create an object, given the name which appears next in the input stream, with a default action of pushing the parameter field address of the object when executed.  No storage is allocated; normally the parameter field will be allocated and initialised by 
+the defining word code that follows the {\b\f4 CREATE}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 DEPTH\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Stack depth\cell \pard \qj\sb120\intbl Returns the number of items on the stack before {\b\f4 DEPTH} was executed.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 DO\cell }\pard \qr\sb120\intbl limit n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Definite loop\cell \pard \qj\sb120\intbl 
+Executes the loop from the following word to the matching {\b\f4 LOOP} or {\b\f4 +LOOP} until {\i n} increments past the boundary between {\i limit}{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 and {\i limit}
+.  Note that the loop is always executed at least once (see {\b\f4 ?DO} for an alternative to this).\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ?DO\cell }\pard \qr\sb120\intbl limit n\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Conditional loop\cell \pard \qj\sb120\intbl If {\i n} equals {\i limit}, skip immediately to the matching {\b\f4 LOOP} or {\b\f4 +LOOP
+}.  Otherwise, enter the loop, which is thenceforth treated as a normal {\b\f4 DO} loop.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 DOES>\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Run-time action\cell \pard \qj\sb120\intbl Sets the run-time action of a word created by the last {\b\f4 CREATE}
+ to the code that follows.  When the word is executed, its body address is pushed on the stack, then the code that follows the {\b\f4 DOES>} will be executed.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 DROP
+\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Discard top of stack\cell \pard \qj\sb120\intbl Discards the value at the top of the stack.
+\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 DUP\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n n\cell \pard 
+\sb120\intbl Duplicate\cell \pard \qj\sb120\intbl Duplicates the value at the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ?DUP\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl 0 / n n\cell \pard \sb120\intbl Conditional duplicate\cell \pard \qj\sb120\intbl If top of stack is nonzero, duplicate it.  Otherwise leave zero on top of stack.\cell \pard 
+\qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ELSE\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Else\cell 
+\pard \qj\sb120\intbl Used in an {\b\f4 IF}\emdash {\b\f4 ELSE}\emdash {\b\f4 THEN} sequence, delimits the code to be executed if the if-condition was false.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 EXECUTE
+\cell }\pard \qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Execute word\cell \pard \qj\sb120\intbl Executes the word with compile address {\i addr}.
+\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 EXIT\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl 
+Exit definition\cell \pard \qj\sb120\intbl Exit from the current definition immediately.  Note that {\b\f4 EXIT} cannot be used within a {\b\f4 DO}\emdash {\b\f4 LOOP}; use {\b\f4 LEAVE} instead.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row 
+\pard \qj\sb120\intbl {\b\f4 EXP\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2=e{\fs16\up6 f1}\cell \pard \qj\sb120\intbl 
+The floating point value on the top of the stack is replaced by its natural antilogarithm.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F+\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl f3=f1+f2\cell \pard \qj\sb120\intbl The two floating point values on the top of the stack are added and their sum is placed on the top of the stack.
+\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F-\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard 
+\sb120\intbl f3=f1{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}f2\cell \pard \qj\sb120\intbl The floating point value {\i f2} is subtracted from the floating point value {\i f1} and the result is placed on the top of the stack.\cell \pard 
+\qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F*\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl 
+f3=f1{\field{\*\fldinst SYMBOL 180 \\f "Symbol"}{\fldrslt }}f2\cell \pard \qj\sb120\intbl The two floating point values on the top of the stack are multiplied and their product is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 REAL
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F/\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl  f3=f1{\field{\*\fldinst 
+SYMBOL 184 \\f "Symbol"}{\fldrslt }}f2\cell \pard \qj\sb120\intbl The floating point value {\i f1} is divided by the floating point value {\i f2} and the quotient is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 F.\cell }\pard \qr\sb120\intbl f\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print floating point\cell \pard \qj\sb120\intbl 
+The floating point value on the top of the stack is printed.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F<\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\
+f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Floating less than\cell \pard \qj\sb120\intbl The top of stack is set to {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i f1} is less than {\i f2} and 0 otherwise.
+\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F<=\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard 
+\sb120\intbl Floating less than or equal\cell \pard \qj\sb120\intbl The top of stack is set to {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i f1} is less than or equal to {\i f2} and 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 REAL
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F<>\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Floating not equal\cell 
+\pard \qj\sb120\intbl The top of stack is set to {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i f1} is not equal to {\i f2} and 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F=
+\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Floating equal\cell \pard \qj\sb120\intbl The top of stack is set to 
+{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i f1} is equal to {\i f2} and 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F>\cell }\pard \qr\sb120\intbl f1 f2\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Floating greater than\cell \pard \qj\sb120\intbl The top of stack is set to {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}
+1 if {\i f1} is greater than {\i f2} and 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 F>=\cell }\pard \qr\sb120\intbl f1 f2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Floating greater than or equal\cell \pard \qj\sb120\intbl The top of stack is set to {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 if {\i f1} is greater than or equal to {\i f2}
+ and 0 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FABS\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2
+\cell \pard \sb120\intbl f2=|f1|\cell \pard \qj\sb120\intbl Replaces floating point top of stack with its absolute value.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FCLOSE\cell }\pard \qr\sb120\intbl file\cell 
+\pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Close file\cell \pard \qj\sb120\intbl The specified file is closed.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl 
+\row \pard \qj\sb120\intbl {\b\f4 FDELETE\cell }\pard \qr\sb120\intbl s1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Delete file\cell \pard \qj\sb120\intbl 
+The file named by the string {\i s1} is deleted.  If the file was successfully deleted, {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 is returned.   Otherwise, 0 is returned.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row 
+\pard \qj\sb120\intbl {\b\f4 FGETC\cell }\pard \qr\sb120\intbl file\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl char\cell \pard \sb120\intbl Read next character\cell \pard \qj\sb120\intbl 
+The next byte is read from the specified {\i file} and placed on the top of the stack.  If end of file is encountered, {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 is returned.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row 
+\pard \qj\sb120\intbl {\b\f4 FGETS\cell }\pard \qr\sb120\intbl file string\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Read string\cell \pard \qj\sb120\intbl 
+The next text line (limited to a maximum of 132 characters) is read from {\i file} and stored into the buffer at {\i string}.  Input lines are recognised in all the end of line co
+nventions accepted by AutoCAD.  The end of line delimiter is deleted from the input line and is not stored in the {\i string}.  If end of file is encountered 0 is returned; otherwise {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}
+1 is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FILE }{\i f}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"
+}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Declare file\cell \pard \qj\sb120\intbl A file descriptor named {\i f} is declared.  This descriptor may subsequently be associated with a file with {\b\f4 FOPEN}.\cell \pard \qj\sb120\intbl {
+\b\f4 FILEIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FIND\cell }\pard \qr\sb120\intbl s\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl word flag\cell \pard \sb120\intbl Look up word
+\cell \pard \qj\sb120\intbl The word with name given by the string {\i s} is looked up in the dictionary.  If a definition if not found, {\i word} will be left as the address of the string and {\i flag}
+ will be set to zero.  If the word is present in the dictionary, its compilation address is placed on the stack, followed by a {\i flag} that is 1 if the word is marked for immediate execution and {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}
+1 otherwise.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FIX\cell }\pard \qr\sb120\intbl f\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n
+\cell \pard \sb120\intbl Floating to integer\cell \pard \qj\sb120\intbl The floating point number on the top of the stack is replaced by the integer obtained by truncating its fractional part.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl 
+\row \pard \qj\sb120\intbl {\b\f4 (FLIT)\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f\cell \pard \sb120\intbl Push floating point literal\cell \pard 
+\qj\sb120\intbl Pushes the floating point literal that follows in line onto the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FLOAD\cell }\pard \qr\sb120\intbl file\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl stat\cell \pard \sb120\intbl Load file\cell \pard \qj\sb120\intbl The source program starting at the current position in {\i file}
+ is loaded as if its text appeared at the current character position in the input stream.  The status resulting from the evaluation is left on the stack, zero if normal, negative in case of error.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 FLOAT\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f\cell \pard \sb120\intbl Integer to floating\cell \pard 
+\qj\sb120\intbl The integer value on the top of the stack is replaced by the equivalent floating point value.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FMAX\cell }\pard \qr\sb120\intbl f1 f2\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl Floating point maximum\cell \pard \qj\sb120\intbl 
+The greater of the two floating point values on the top of the stack is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 FLOAT\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FMIN\cell }\pard \qr\sb120\intbl f1 f2\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl Floating point minimum\cell \pard \qj\sb120\intbl 
+The lesser of the two floating point values on the top of the stack is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 FLOAT\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FNEGATE\cell }\pard \qr\sb120\intbl f1\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2 = {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}f1\cell \pard \qj\sb120\intbl 
+The negative of the floating point value on the top of the stack replaces the floating point value there.\cell \pard \qj\sb120\intbl {\b\f4 FLOAT\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FOPEN\cell }\pard \qr\sb120\intbl fname fmodes file
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl File open\cell \pard \qj\sb120\intbl The previously declared {\i file} is opened with the specified file name {\i 
+fname} given by the string address on the stack in the mode given by {\i fmodes}.  The bits in {\i fmodes} are 1 for read, 2 for write, 4 for binary, and 8 to create a new file.  If the file is opened successfully, {\field{\*\fldinst SYMBOL 45 \\
+f "Symbol"}{\fldrslt }}1 is returned; otherwise 0 is returned.  The Unix standard streams, {\b\f4 STDIN}, {\b\f4 STDOUT}, and {\b\f4 STDERR} are predefined and automatically opened.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 FORGET }{\i w}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Forget word\cell \pard \qj\sb120\intbl 
+The most recent definition of word {\i w} is deleted, along with all words declared more recently than the named word.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FPUTC\cell }\pard \qr\sb120\intbl char file
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl stat\cell \pard \sb120\intbl Write character\cell \pard \qj\sb120\intbl The character {\i char} is written to {\i file}.  If the charact
+er is written successfully, {\i char} is returned; otherwise {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 is returned.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FPUTS\cell }\pard 
+\qr\sb120\intbl s file\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl flag\cell \pard \sb120\intbl Write string\cell \pard \qj\sb120\intbl The string {\i s} is written to {\i file}
+, followed by the end of line delimiter used on this system.  If the line is written successfully, {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 is returned; otherwise 0 is returned.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl 
+\row \pard \qj\sb120\intbl {\b\f4 FREAD\cell }\pard \qr\sb120\intbl file len buf\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl nread\cell \pard \sb120\intbl Read file\cell \pard \qj\sb120\intbl 
+{\i Len} bytes are read into buffer {\i buf} from {\i file}.  The number of bytes actually read is returned on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FSEEK\cell }\pard 
+\qr\sb120\intbl offset base file\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Set file position\cell \pard \qj\sb120\intbl The current position of {\i file} is set to {
+\i offset}, relative to the specified {\i base}: if 0, the beginning of the file; if 1, the current file position; if 2, the end of file.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FSTRFORM\cell }\pard 
+\qr\sb120\intbl f format str\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Floating point edit\cell \pard \qj\sb120\intbl Edits a floating point number {\i f}
+ into string {\i str}, using the {\b\f4 sprintf} format given by the string {\i format}.\cell \pard \qj\sb120\intbl {\b\f4 REAL\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FTELL\cell }\pard \qr\sb120\intbl file\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl pos\cell \pard \sb120\intbl File position\cell \pard \qj\sb120\intbl Returns the current byte position {\i pos} for file {\i file}.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 FWRITE\cell }\pard \qr\sb120\intbl len buf file\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl nwrit\cell \pard \sb120\intbl File write\cell 
+\pard \qj\sb120\intbl Writes {\i len} bytes from the buffer at address {\i buf} to {\i file}.  The number of bytes written is returned on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 FILEIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 
+HERE\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl addr\cell \pard \sb120\intbl Heap address\cell \pard \qj\sb120\intbl 
+The current heap allocation address is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 I\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\
+f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Inner loop index\cell \pard \qj\sb120\intbl The index of the innermost {\b\f4 DO}\emdash {\b\f4 L}{\b\f4 OOP} is placed on the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 IF\cell }\pard \qr\sb120\intbl flag\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Conditional statement\cell \pard 
+\qj\sb120\intbl If {\i flag} is nonzero, the following statements are executed.  Otherwise, execution resumes after the matching {\b\f4 ELSE} clause, if any, or after the matching {\b\f4 THEN}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row 
+\pard \qj\sb120\intbl {\b\f4 IMMEDIATE\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Mark immediate\cell \pard \qj\sb120\intbl 
+The most recently defined word is marked for immediate execution; it will be executed even if entered in compile state.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 J\cell }\pard \qr\sb120\intbl \cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Outer loop index\cell \pard \qj\sb120\intbl The loop index of the next to innermost {\b\f4 DO}\emdash {\b\f4 LOOP}
+ is placed on the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 L>NAME\cell }\pard \qr\sb120\intbl lfa\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard 
+\sb120\intbl nfa\cell \pard \sb120\intbl Link to name field\cell \pard \qj\sb120\intbl Given the link field address of a word on the top of the stack, its name pointer field address is returned.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 LEAVE\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Exit {\b\f4 DO}\emdash {\b\f4 LOOP}\cell \pard 
+\qj\sb120\intbl The innermost {\b\f4 DO}\emdash {\b\f4 LOOP} is immediately exited.  Execution resumes after the {\b\f4 LOOP} statement marking the end of the loop.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 
+LINK>\cell }\pard \qr\sb120\intbl lfa\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl cfa\cell \pard \sb120\intbl Link field to compile address\cell \pard \qj\sb120\intbl Given the link field ad
+dress of a word on the top of the stack, the compile address of the word is returned.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >LINK\cell }\pard \qr\sb120\intbl cfa\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl lfa\cell \pard \sb120\intbl Link address\cell \pard \qj\sb120\intbl Given the compile address of a word, return its link field address.\cell \pard \qj\sb120\intbl {\b\f4 
+DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 (LIT)\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Push literal\cell \pard 
+\qj\sb120\intbl Pushes the integer literal that follows in line onto the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 LITERAL\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Compile literal\cell \pard \qj\sb120\intbl Compiles the value on the top of the stack into the current definition.  When the de
+finition is executed, that value will be pushed onto the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 LOG\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2=ln f1\cell \pard \qj\sb120\intbl The floating point value on the top of the stack is replaced by its natural logarithm.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell 
+}\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 LOOP\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Increment loop index\cell \pard 
+\qj\sb120\intbl Adds one to the index of  the active loop.  If the limit is reached, the loop is exited.  Otherwise, another iteration is begun.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 +LOOP\cell }\pard 
+\qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Add to loop index\cell \pard \qj\sb120\intbl Adds {\i n} to the index of  the a
+ctive loop.  If the limit is reached, the loop is exited.  Otherwise, another iteration is begun.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 <MARK\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl addr\cell \pard \sb120\intbl Backward jump mark\cell \pard \qj\sb120\intbl Saves the current compilation address on the stack.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >MARK\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl addr\cell \pard \sb120\intbl Forward mark\cell \pard 
+\qj\sb120\intbl Compiles a place-holder offset for a forward jump and saves its address for later backpatching on the stack.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 MAX\cell }\pard \qr\sb120\intbl 
+n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Maximum\cell \pard \qj\sb120\intbl The greater of {\i n1} and {\i n2} is left on the top of the stack.\cell \pard 
+\qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 MEMSTAT\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl 
+Print memory status\cell \pard \qj\sb120\intbl The current and maximum memory usage so far are printed on standard output.  The sizes allocated for the stack, return stack, and heap are edited, as well as the percentage in use.\cell \pard \qj\sb120\intbl 
+{\b\f4 MEMSTAT\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 MIN\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Minimum\cell 
+\pard \qj\sb120\intbl The lesser of {\i n1} and {\i n2} is left on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 MOD\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Modulus (remainder)\cell \pard \qj\sb120\intbl The remainder when {\i n1} is divided by {\i n2} is left on the top of the stack.\cell \pard 
+\qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 /MOD\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3 n4\cell \pard \sb120\intbl 
+n3 = n1 mod n2, n4 = n1 {\field{\*\fldinst SYMBOL 184 \\f "Symbol"}{\fldrslt }} n2\cell \pard \qj\sb120\intbl Divides {\i n1} by {\i n2} and leaves quotient on top of stack, remainder as next on stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard 
+\intbl \row \pard \qj\sb120\intbl {\b\f4 N>LINK\cell }\pard \qr\sb120\intbl nfa\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl lfa\cell \pard \sb120\intbl Name to link field\cell \pard 
+\qj\sb120\intbl Given the name field pointer address of a word on the top of the stack, leaves the link field address of the word on the top of stack.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >NAME
+\cell }\pard \qr\sb120\intbl cfa\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl nfa\cell \pard \sb120\intbl Name address\cell \pard \qj\sb120\intbl 
+Given the compile address of a word, return its name pointer field address.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 NAME>\cell }\pard \qr\sb120\intbl nfa\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl cfa\cell \pard \sb120\intbl Name field to compile address\cell \pard \qj\sb120\intbl 
+Given the address of the name pointer field of a word on the top of the stack, leaves the compile address of the word on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 NAME>S!\cell 
+}\pard \qr\sb120\intbl nfa string\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Get name field\cell \pard \qj\sb120\intbl 
+Stores the name field of the word pointed to by {\i nfa} into {\i string}.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 NEGATE\cell }\pard \qr\sb120\intbl n1\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl n2={\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}n1\cell \pard \qj\sb120\intbl Negates the value on the top of the stack.\cell \pard 
+\qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 (NEST)\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl 
+Invoke word\cell \pard \qj\sb120\intbl Pushes the instruction pointer onto the return stack and sets the instruction pointer to the next word in line.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 NOT\cell }\pard 
+\qr\sb120\intbl n1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2\cell \pard \sb120\intbl Logical not\cell \pard \qj\sb120\intbl 
+Inverts the bits in the value on the top of the stack.  This performs logical negation for truth values of {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 (True) and 0 (False).\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 OR\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Bitwise {\scaps or}\cell \pard \qj\sb120\intbl 
+Stores the bitwise {\scaps or} of {\i n1} and {\i n2} on the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 OVER}{\b\f4 \cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n1 n2 n1\cell \pard \sb120\intbl Duplicate second item\cell \pard \qj\sb120\intbl The second item on the stack is copied to the top.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row 
+\pard \qj\sb120\intbl {\b\f4 PICK\cell }\pard \qr\sb120\intbl {\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }} n{\fs16\dn6 2} n{\fs16\dn6 1} n{\fs16\dn6 0} index\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}
+\cell \pard \sb120\intbl {\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }} n0 n{\fs16\dn6 index}\cell \pard \sb120\intbl Pick item from stack\cell \pard \qj\sb120\intbl The {\i index}
+th stack item is copied to the top of the stack.  The top of stack has {\i index} 0, the second item {\i index} 1, and so on.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 POW\cell }\pard \qr\sb120\intbl f1 f2
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f3\cell \pard \sb120\intbl f3=f1{\fs16\up6 f2}\cell \pard \qj\sb120\intbl 
+The second floating point value on the stack is taken to the power of the top floating point stack value and the result is left on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 QUIT\cell 
+}\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Quit execution\cell \pard \qj\sb120\intbl 
+The return stack is cleared and control is returned to the interpreter.  The stack is not disturbed.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >R\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl To return stack\cell \pard \qj\sb120\intbl Removes the top item from the stack and pushes it onto the return stack.\cell \pard \qj\sb120\intbl {\b\f4 
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 R>\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl From return stack\cell \pard 
+\qj\sb120\intbl The top value is removed from the return stack and pushed onto the stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 R@\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Fetch return stack\cell \pard \qj\sb120\intbl 
+The top value on the return stack is pushed onto the stack.  The value is not removed from the return stack.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 REPEAT\cell }\pard \qr\sb120\intbl \cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Close {\b\f4 BEGIN}\emdash {\b\f4 WHILE}\emdash {\b\f4 REPEAT} loop\cell \pard \qj\sb120\intbl Another iteration of the current {
+\b\f4 BEGIN}\emdash {\b\f4 WHILE}\emdash {\b\f4 REPEAT} loop having been completed, execution continues after the matching {\b\f4 BEGIN}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 <RESOLVE\cell }\pard 
+\qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Backward jump resolve\cell \pard \qj\sb120\intbl Compiles the address saved by the matching {\b\f4 
+<MARK}.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 >RESOLVE\cell }\pard \qr\sb120\intbl addr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl 
+\cell \pard \sb120\intbl Forward jump resolve\cell \pard \qj\sb120\intbl Backpatches the address left by the matching {\b\f4 >MARK} to jump to the next word to be compiled.\cell \pard \qj\sb120\intbl {\b\f4 COMPILERW\cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 ROLL\cell }\pard \qr\sb120\intbl {\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }} n{\fs16\dn6 2  }n{\fs16\dn6 1 }n{\fs16\dn6 0} index\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell 
+\pard \sb120\intbl {\field{\*\fldinst SYMBOL 188 \\f "Symbol"}{\fldrslt }} n{\fs16\dn6 0} n{\fs16\dn6 index}\cell \pard \sb120\intbl Rotate {\i index}th item to top\cell \pard \qj\sb120\intbl The stack item selected by {\i index}
+, with 0 designating the top of stack, 1 the second item, and so on, is moved to the top of the stack.  The intervening stack items are moved down one item.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 ROT\cell 
+}\pard \qr\sb120\intbl n1 n2 n3\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2 n3 n1\cell \pard \sb120\intbl Rotate 3 items\cell \pard \qj\sb120\intbl 
+The third item on the stack is placed on the top of the stack and the second and first items are moved down.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 -ROT\cell }\pard \qr\sb120\intbl n1 n2 n3\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3 n1 n2\cell \pard \sb120\intbl Reverse rotate\cell \pard \qj\sb120\intbl Moves the top of stack to the third item, moving the third and second items up.
+\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 S!\cell }\pard \qr\sb120\intbl s1 s2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard 
+\sb120\intbl Store string\cell \pard \qj\sb120\intbl The string at address {\i s1} is copied into the string at {\i s2}.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 S+\cell }\pard \qr\sb120\intbl s1 s2
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl String concatenate\cell \pard \qj\sb120\intbl The string at address {\i s}{\i 1} is concatenated to the string at address 
+{\i s2}.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 S>NAME!\cell }\pard \qr\sb120\intbl string nfa\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard 
+\sb120\intbl \cell \pard \sb120\intbl Store name field\cell \pard \qj\sb120\intbl Stores the {\i string} into the name field of the word given by name pointer field {\i nfa}.\cell \pard \qj\sb120\intbl {\b\f4 DEFFIELDS\cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 SHIFT\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Shift n1 by n2 bits\cell \pard \qj\sb120\intbl The value {
+\i n1} is logically shifted the number of bits specified by {\i n2}, left if {\i n2} is positive and right if {\i n2} is negative.  Zero bits are shifted into vacated bits.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {
+\b\f4 SIN\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl Sine\cell \pard \qj\sb120\intbl The floatin
+g point value on the top of the stack is replaced by its sine.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 SQRT\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\
+f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl f2 = sqrt f1\cell \pard \qj\sb120\intbl The floating point value on the top of the stack is replaced by its square root.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl 
+\row \pard \qj\sb120\intbl {\b\f4 STATE\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl addr\cell \pard \sb120\intbl System state variable\cell \pard \qj\sb120\intbl 
+The address of the system state variable is pushed on the stack.  The state is zero if  interpreting, nonzero if compiling.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 STRCAT\cell }\pard \qr\sb120\intbl s1 s2
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl String concatenate\cell \pard \qj\sb120\intbl The string at address {\i s1} is concatenated to the string at address {\i 
+s2}.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 STRCHAR\cell }\pard \qr\sb120\intbl s1 s2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell 
+\pard \sb120\intbl String character search\cell \pard \qj\sb120\intbl The string at address {\i s1} is searched for the first occurrence of the first character of string {\i s2}.  If that character appears nowhere in {\i s1}
+, 0 is returned.  Otherwise, the address of the first occurrence in {\i s1} is left on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 STRCMP\cell }\pard \qr\sb120\intbl s1 s2\cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl String compare\cell \pard \qj\sb120\intbl The string at address {\i s1} is compared to the string at address {\i s2}.  If {\i s1}
+ is less than {\i s2}, {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 is returned.  If {\i s1} and {\i s2} are equal, 0 is returned.  If {\i s1} is greater than {\i s2}, 1 is returned.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl 
+\row \pard \qj\sb120\intbl {\b\f4 STRCPY\cell }\pard \qr\sb120\intbl s1 s2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Store string\cell \pard \qj\sb120\intbl 
+The string at address {\i s1} is copied into the string at {\i s2}.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 STRFORM\cell }\pard \qr\sb120\intbl n format str\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Integer edit\cell \pard \qj\sb120\intbl Edits the number {\i n} into string {\i str}, using the {\b\f4 sprintf}  format given by the string {\i format
+}.  Note: the reference to the number in the format must be as a {\b\f4 long} value, for example {\b\f4 "%ld"}.\cell \pard \qj\sb120\intbl {\b\f4 STRI}{\b\f4 NG\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 STRING }{\i x}{\b\f4 \cell }\pard 
+\qr\sb120\intbl size\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Declare string\cell \pard \qj\sb120\intbl Declares a string named {\i x} of a maximum of {\i size}
+{\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}1 characters.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 STRINT\cell }\pard \qr\sb120\intbl s1\cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl s2 n\cell \pard \sb120\intbl String to integer\cell \pard \qj\sb120\intbl Scans an integer from {\i s1}
+.  The integer scanned is placed on the top of the stack and the address of the character that terminated the scan is stored as the next item on the stack.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 
+STRLEN\cell }\pard \qr\sb120\intbl s\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl String length\cell \pard \qj\sb120\intbl The length of string {\i s}
+ is placed on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 (STRLIT)\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}
+\cell \pard \sb120\intbl s\cell \pard \sb120\intbl String literal\cell \pard \qj\sb120\intbl Pushes the address of the string literal that follows in line onto the stack.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard 
+\qj\sb120\intbl {\b\f4 STRREAL\cell }\pard \qr\sb120\intbl s1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl s2 f\cell \pard \sb120\intbl String to real\cell \pard \qj\sb120\intbl 
+Scans a floating point number from {\i s1}.  The floating point number scanned is placed on the top of the stack and the address of the character that terminated the scan is stored as the next item on the stack.\cell \pard \qj\sb120\intbl {\b\f4 STRING
+\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 SUBSTR\cell }\pard \qr\sb120\intbl s1 start length s2\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Extra
+ct substring\cell \pard \qj\sb120\intbl The substring of string {\i s1} that begins at character {\i start}, with the first character numbered 0, extending for {\i length} characters, with {\field{\*\fldinst SYMBOL 45 \\f "Symbol"}{\fldrslt }}
+1 designating all characters to the end of string, is stored into the string {\i s2}.\cell \pard \qj\sb120\intbl {\b\f4 STRING\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 SWAP\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n2 n1\cell \pard \sb120\intbl Swap top two items\cell \pard \qj\sb120\intbl The top two stack items are interchanged.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl 
+\row \pard \qj\sb120\intbl {\b\f4 SYSTEM\cell }\pard \qr\sb120\intbl s\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n\cell \pard \sb120\intbl Execute system command\cell \pard \qj\sb120\intbl 
+The operating system command given in the string {\i s} is passed to the system's command interpreter (shell).  The system result status returned after the command completes is left on the top of the stack.\cell \pard \qj\sb120\intbl {\b\f4 SYSTEM\cell 
+}\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 TAN\cell }\pard \qr\sb120\intbl f1\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl f2\cell \pard \sb120\intbl Tangent\cell \pard \qj\sb120\intbl 
+The floating point value on the top of the stack is replaced by its tangent.\cell \pard \qj\sb120\intbl {\b\f4 MATH\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 THEN\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl End if\cell \pard \qj\sb120\intbl Used in an {\b\f4 IF}\emdash {\b\f4 ELSE}\emdash {\b\f4 THEN} sequence, marks the end of the conditional statement.\cell \pard 
+\qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 TRACE\cell }\pard \qr\sb120\intbl n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Trace mode
+\cell \pard \qj\sb120\intbl If {\i n} is nonzero, trace mode is enabled.  If {\i n} is zero, trace mode is turned off.\cell \pard \qj\sb120\intbl {\b\f4 TRACE\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 TYPE\cell }\pard \qr\sb120\intbl s\cell 
+\pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Print string\cell \pard \qj\sb120\intbl The string at address {\i s} is printed on standard output.\cell \pard \qj\sb120\intbl {
+\b\f4 CONIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 UNTIL\cell }\pard \qr\sb120\intbl flag\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl End {\b\f4 BEGIN}
+\emdash {\b\f4 UNTIL} loop\cell \pard \qj\sb120\intbl If {\i flag} is zero, the loop continues execution at the word following the matching {\b\f4 BEGIN}.  If {\i flag} is nonzero, the loop is exited and the word following the {\b\f4 UNTIL} is executed.
+\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 VARIABLE }{\i x}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell 
+\pard \sb120\intbl Declare variable\cell \pard \qj\sb120\intbl A variable named {\i x} is declared and its value is set to zero.  When {\i x}
+ is executed, its address will be placed on the stack.  Four bytes are reserved on the heap for the variable's value.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 WALKBACK\cell }\pard \qr\sb120\intbl n\cell 
+\pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Walkback mode\cell \pard \qj\sb120\intbl If {\i n}
+ is nonzero, a walkback trace through active words will be performed whenever an error occurs during execution.  If {\i n} is zero, the walkback is suppressed.\cell \pard \qj\sb120\intbl {\b\f4 WALKBACK\cell }\pard \intbl \row \pard \qj\sb120\intbl {
+\b\f4 WHILE\cell }\pard \qr\sb120\intbl flag\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Decide {\b\f4 BEGIN}{\field{\*\fldinst SYMBOL 190 \\f "Symbol"}{\fldrslt }}{
+\b\f4 WHILE}\emdash {\b\f4 REPEAT} loop\cell \pard \qj\sb120\intbl If {\i flag} is nonzero{\f4 ,} execution continues after the {\b\f4 WHILE}.  If {\i flag} is zero, the loop is exited and execution resumed after the {\b\f4 REPEAT}
+ that marks the end of the loop.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 WORDS\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard 
+\sb120\intbl \cell \pard \sb120\intbl List words defined\cell \pard \qj\sb120\intbl 
+Defined words are listed, from the most recently defined to the first defined.  If the system supports keystroke trapping, pressing any key will pause the display of defined words; pressing carriage return will abort the listing\emdash 
+any other key resumes it.  On other systems, only the 20 most recently defined words are listed.\cell \pard \qj\sb120\intbl {\b\f4 CONIO\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 WORDSUSED}{\b\f4 \cell }\pard \qr\sb120\intbl \cell \pard 
+\qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl List words used\cell \pard \qj\sb120\intbl 
+The words used by this program are listed on standard output.  If the system supports keystroke trapping, the listing may be aborted by pressing a key while the output is in progress.  The words used report is useful in configuring a custom version of {
+\scaps atlast} that includes just the words needed by the program it executes.\cell \pard \qj\sb120\intbl {\b\f4 WORDSUSED\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 WORDSUNUSED\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl List words not used\cell \pard \qj\sb120\intbl The words not used by this program are listed on standard outp
+ut.  If the system supports keystroke trapping, the listing may be aborted by pressing a key while the output is in progress.  The words not used report is useful in configuring a custom version of {\scaps atlast}
+ that includes just the words needed by the program it executes.\cell \pard \qj\sb120\intbl {\b\f4 WORDSUSED\cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 XOR\cell }\pard \qr\sb120\intbl n1 n2\cell \pard \qj\sb120\intbl {\field{\*\fldinst 
+SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl n3\cell \pard \sb120\intbl Bitwise exclusive {\scaps or}\cell \pard \qj\sb120\intbl Stores the bitwise exclusive {\scaps or} of {\i n1} and {\i n2} on the stack.\cell \pard \qj\sb120\intbl {
+\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 (XDO)\cell }\pard \qr\sb120\intbl limit n\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Execute loop\cell 
+\pard \qj\sb120\intbl At runtime, enters a loop that will step until {\i n} increments and becomes equal to {\i limit}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 (X?DO)\cell }\pard \qr\sb120\intbl limit n
+\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Execute conditional loop\cell \pard \qj\sb120\intbl At runtime, tests if {\i n} equals {\i limit}
+.  If so, skips until the matching {\b\f4 LOOP} or {\b\f4 +LOOP}.  Otherwise, enters the loop.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard \qj\sb120\intbl {\b\f4 (XLOOP)\cell }\pard \qr\sb120\intbl \cell \pard \qj\sb120\intbl 
+{\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard \sb120\intbl Increment loop index\cell \pard \qj\sb120\intbl 
+At runtime, adds one to the index of the active loop and exits if equal to the limit.  Otherwise returns to the matching {\b\f4 DO} or {\b\f4 ?DO}.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \trowd \trgaph108\trleft-108 \cellx1560
+\cellx2694\cellx3119\cellx3839\cellx5473\cellx9017\cellx10576\pard \qj\sb120\intbl {\b\f4 (+XLOOP)\cell }\pard \qr\sb120\intbl incr\cell \pard \qj\sb120\intbl {\field{\*\fldinst SYMBOL 222 \\f "Symbol"}{\fldrslt }}\cell \pard \sb120\intbl \cell \pard 
+\sb120\intbl Add to loop index\cell \pard \qj\sb120\intbl At runtime, increments the loop index by the top of stack.  If the loop is not done, begins the next iteration.\cell \pard \qj\sb120\intbl {\b\f4 \cell }\pard \intbl \row \pard\plain 
+\s6\qj\sb120\keepn \fs36\lang1033 {\fs20 \page }Benchmark Program Listings
+\par \pard \s6\qj\sb120\keepn 
+\par \pard\plain \s2\qc \fs20\lang1033 {\b\f4\fs36 SQRT.ATL
+\par }\pard\plain \s3 \b\f4\fs20\lang1033 {\fs18 2variable x
+\par }{\fs18 2variable y
+\par }{\fs18 
+\par }{\fs18 : csqrt
+\par }{\fs18         2dup 0.0 f< if
+\par }{\fs18            cr ." "SQRT: Negative argument!"
+\par }{\fs18            exit
+\par }{\fs18         then
+\par }{\fs18         2dup 0.0 f<> if
+\par }{\fs18            2dup 2dup x 2!
+\par }{\fs18            1.893872 f* 0.154116 f+
+\par }{\fs18            1.047988 f* 1.0 f+
+\par }{\fs18            f/ y 2!                 \\ y=(0.154116+1.893872*x)/(1.0+1.047988*x)
+\par }{\fs18 
+\par }{\fs18            y 2@                    \\ y
+\par }{\fs18     }{\fs18        0.0                     \\ y c
+\par }{\fs18            begin
+\par }{\fs18                  2swap             \\ c y
+\par }{\fs18                  2dup              \\ c y y
+\par }{\fs18                  x 2@              \\ c y y x
+\par }{\fs18                  2over             \\ c y y x y
+\par }{\fs18                  f/                \\ c y y x/y
+\par }{\fs18                  f-                \\ c y y-x/y
+\par }{\fs18                  -0.5              \\ c y (y-x/y) -0.5
+\par }{\fs18                  f*                \\ c y (y-x/y)*-0.5
+\par }{\fs18                  2dup              \\ cl y c c
+\par }{\fs18                  2rot             }{\fs18  \\ cl c c y
+\par }{\fs18                  f+                \\ cl c c+y
+\par }{\fs18                  2rot              \\ c c+y cl
+\par }{\fs18                  2rot              \\ c+y cl c
+\par }{\fs18                  2swap             \\ c+y c cl
+\par }{\fs18                  2over             \\ c+y c cl c
+\par }{\fs18                  f=                \\ c+y c =0?
+\par }{\fs18            until
+\par }{\fs18            2drop
+\par }{\fs18         then
+\par }{\fs18 ;
+\par }{\fs18 
+\par }{\fs18 : cbenchmark 10000 0 do 2.0 csqrt 2drop loop ." "Done\\n" ;
+\par }{\fs18 : sbenchmark 100000 0 do 2.0 sqrt 2drop loop ." "Done\\n" ;
+\par }{\fs18 
+\par }{\fs18 .( "Type \\"cbenchmark\\" to run the CSQRT benchmark (}{\fs18 10000 iterations).\\n"
+\par }{\fs18 .( "Type \\"sbenchmark\\" to run the SQRT benchmark (100000 iterations).\\n"
+\par }\pard\plain \s2\qc \fs20\lang1033 \page {\b\f4\fs36 CSQRT.C
+\par }\pard\plain \s3 \b\f4\fs20\lang1033 {\fs18 #include <stdio.h>
+\par }{\fs18 
+\par }{\fs18 double asqrt(x)
+\par }{\fs18   double x;
+\par }{\fs18 \{
+\par }{\fs18     double c, cl, y;
+\par }{\fs18     int n;
+\par }{\fs18 
+\par }{\fs18     if (c == 0.0)
+\par }{\fs18         return (0.0);
+\par }{\fs18 
+\par }{\fs18     if (x < 0.0)
+\par }{\fs18         abort();
+\par }{\fs18 
+\par }{\fs18     y = (0.154116 + 1.893872 * x) / (1.0 + 1.047988 * x);
+\par }{\fs18     c = 0.0;
+\par }{\fs18     n = 20;
+\par }{\fs18     do \{
+\par }{\fs18         cl = c;
+\par }{\fs18         c = (y - x / y) * 0.5;
+\par }{\fs18         y -=  c;
+\par }{\fs18     \} while (c != cl && --n);
+\par }{\fs18     return y;
+\par }{\fs18 \}
+\par }{\fs18 
+\par }{\fs18 main()
+\par }{\fs18 \{
+\par }{\fs18     int i;
+\par }{\fs18     char a[300];
+\par }{\fs18 
+\par }{\fs18     fpu}{\fs18 ts("Ready to test: ", stdout);
+\par }{\fs18     gets(a);
+\par }{\fs18 
+\par }{\fs18     for (i = 0; i < 100000; i++)
+\par }{\fs18         asqrt(2.0);
+\par }{\fs18     printf("Done.\\n");
+\par }\pard \s3 \}
+\par \pard\plain \s2\qc \fs20\lang1033 \page {\b\f4\fs36 SSQRT.C
+\par }\pard\plain \s3 \b\f4\fs20\lang1033 {\fs18 #include <stdio.h>
+\par }{\fs18 #include <math.h>
+\par }{\fs18 
+\par }{\fs18 main()
+\par }{\fs18 \{
+\par }{\fs18     int i;
+\par }{\fs18     char a[300];
+\par }{\fs18 
+\par }{\fs18     fputs("Ready to test: ", stdout);
+\par }{\fs18     gets(a);
+\par }{\fs18 
+\par }{\fs18     for (i = 0; i < 100000; i++)
+\par }{\fs18         sqrt(2.0);
+\par }{\fs18     printf("Done.\\n");
+\par }{\fs18 \}
+\par }\pard\plain \s2\qc \fs20\lang1033 {\fs18 \page }{\b\f4\fs36 SQRT.LSP}{\fs18 
+\par }\pard\plain \s3 \b\f4\fs20\lang1033 {\fs18 
+\par }{\fs18 (defun sqr (x / y c cl)
+\par }{\fs18     (if (or (= 'REAL (type x)) (= 'INT (type x)))
+\par }{\fs18         (progn
+\par }{\fs18             (cond ((minusp x) 'Negative-argument)
+\par }{\fs18                   ((zero}{\fs18 p x) 0.0)
+\par }{\fs18                   (t (setq y (/ (+ 0.154116 (* x 1.893872))
+\par }{\fs18                                        (+ 1.0 (* x 1.047988))
+\par }{\fs18                              )
+\par }{\fs18                      )
+\par }{\fs18                      (setq c (/ (- y (/ x y)) 2.0))
+\par }{\fs18                      (setq cl 0.0)
+\par }{\fs18                      (while (not (equal c cl))
+\par }{\fs18                         (setq y (- y c))
+\par }{\fs18                         (setq cl c)
+\par }{\fs18                         (setq c (/ (- y (/ x y)) 2.0))
+\par }{\fs18                      )
+\par }{\fs18                      y
+\par }{\fs18               }{\fs18     )
+\par }{\fs18             )
+\par }{\fs18         )
+\par }{\fs18         (progn
+\par }{\fs18             (princ "Invalid argument.")
+\par }{\fs18             (princ)
+\par }{\fs18         )
+\par }{\fs18     )
+\par }{\fs18 )
+\par }{\fs18 
+\par }{\fs18 (defun C:csqrt () (repeat 10000 (sqr 2.0)))
+\par }{\fs18 (defun C:ssqrt () (repeat 10000 (sqrt 2.0)))
+\par }\pard\plain \qj\sb120 \fs20\lang1033 
+\par }

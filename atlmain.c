@@ -52,7 +52,7 @@ int main(argc, argv)
     int in = 0;
 #define PR(x) (void) fprintf(stderr, x)
 
-    PR("ATLAST 1.2 (2007-10-07) This program is in the public domain.\n");
+    PR("ATLAST 1.2m (2019-04-07) This program is in the public domain.\n");
     ifp = stdin;
     for (i = 1; i < argc; i++) {
 	char *cp, opt;

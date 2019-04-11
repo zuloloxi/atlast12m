@@ -7,5 +7,14 @@ Atlast was developed at Autodesk, Inc. Autodesk returned the rights to John Walk
 
 Atlast was developed at Autodesk, Inc. Autodesk, returned the rights in 1991, to John Walker and subsequently placed the program in the public domain.
 
+Compiling with msvc 16.x
 
+   cl /FAcs /DMEMSTAT /DEXPORT /DOS2 /F 8000 atlast.c atlmain.c /link /subsystem:console  /DYNAMICBASE:NO /FIXED /NXCOMPAT /MACHINE:X86 /DEBUG /MAP /MAPINFO:EXPORTS
+
+Update repo :
+    ####git init
+git add -A
+git commit -m "xxxx commit"
+	####git remote add origin https://github.com/zuloloxi/atlast12m.git
+git push -u origin master   
 

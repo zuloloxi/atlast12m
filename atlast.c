@@ -16,7 +16,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include "unistd.h"
 
 #ifdef ALIGNMENT
 #ifdef __TURBOC__
@@ -1348,7 +1348,10 @@ prim P_fleq()			      /* Test less than or equal */
 prim P_fdot()			      /* Print floating point top of stack */
 {
     Sl(Realsize);
-    V printf("%g ", REAL0);
+    /* V printf("%g ", REAL0); */
+	V printf("%.16f ", REAL0); /* precision 16 */
+	
+	
     Realpop;
 }
 
